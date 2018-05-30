@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018 xuexiangjys(xuexiangjys@163.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <color name="xvideo_actionbar_bg_color">#222222</color>
+    <color name="xvideo_camera_progress_three">#24ff00</color>
+    <color name="xvideo_camera_bg">#2c2c2c</color>
+    <color name="xvideo_camera_progress_split">#005084</color>
+    <color name="xvideo_camera_progress_delete">#f68b2b</color>
+    <color name="xvideo_camera_progress_overflow">#1b5d89</color>
+    <color name="xvideo_full_title_color">#41000000</color>
+    <color name="xvideo_full_progress_color">#50000000</color>
+
+</resources>

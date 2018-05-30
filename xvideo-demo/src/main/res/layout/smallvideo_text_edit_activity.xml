@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2018 xuexiangjys(xuexiangjys@163.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/xvideo_actionbar_bg_color">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="取消"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="发送"
+            android:textColor="@color/camera_progress_three"
+            android:textSize="13sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rl_title"
+        android:background="@color/color_4e3d31" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_below="@id/line"
+        android:layout_marginTop="15dp"
+        android:paddingRight="15dp">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/et_send_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="呵呵呵呵呵呵呵呵"
+                android:minHeight="66dp"
+                android:paddingLeft="15dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/grey8"
+                android:textSize="16sp" />
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/iv_video_screenshot"
+            android:layout_width="87dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="14.5dp" />
+
+    </LinearLayout>
+</RelativeLayout>
