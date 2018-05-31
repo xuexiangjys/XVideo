@@ -54,10 +54,11 @@ public class MediaRecorderActivity extends AppCompatActivity implements MediaRec
      * 开始视频录制
      * @param context
      * @param mediaRecorderConfig
+     * @param requestCode 请求码
      */
-    public static void startVideoRecorder(Activity context, MediaRecorderConfig mediaRecorderConfig) {
-        context.startActivity(new Intent(context, MediaRecorderActivity.class)
-                .putExtra(MediaRecorderFragment.MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig));
+    public static void startVideoRecorder(Activity context, MediaRecorderConfig mediaRecorderConfig, int requestCode) {
+        context.startActivityForResult(new Intent(context, MediaRecorderActivity.class)
+                .putExtra(MediaRecorderFragment.MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig), requestCode);
     }
 
     @Override
