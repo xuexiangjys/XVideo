@@ -301,7 +301,7 @@ public class MediaRecorderFragment extends Fragment implements
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            if (mMediaRecorder == null) {
+            if (mMediaRecorder == null || mMediaObject == null) {
                 return false;
             }
 

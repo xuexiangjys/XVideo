@@ -40,14 +40,12 @@ public class XCamera {
      * @param logPath 命令日志存储地址
      */
     public static void initialize(boolean debug, String logPath) {
-
         if (debug && TextUtils.isEmpty(logPath)) {
             logPath = mVideoCachePath + "/" + FFMPEG_LOG_FILENAME_TEMP;
         } else if (!debug) {
             logPath = null;
         }
         FFmpegBridge.initJXFFmpeg(debug, logPath);
-
     }
 
 
@@ -55,6 +53,7 @@ public class XCamera {
      * 获取视频缓存文件夹
      */
     public static String getVideoCachePath() {
+        testInitialize();
         return mVideoCachePath;
     }
 
@@ -66,8 +65,12 @@ public class XCamera {
         if (!file.exists()) {
             file.mkdirs();
         }
-
         mVideoCachePath = path;
+    }
 
+    private static void testInitialize() {
+        if (mVideoCachePath == null) {
+            throw new ExceptionInInitializerError("请先在全局Application中调用 XCamera.setVideoCachePath() 初始化视频存放的路径！");
+        }
     }
 }
