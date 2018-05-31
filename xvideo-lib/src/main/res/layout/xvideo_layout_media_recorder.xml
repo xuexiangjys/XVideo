@@ -30,57 +30,7 @@
             android:layout_marginTop="49dp" />
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/xvideo_actionbar_bg_color"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/title_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:padding="10dip"
-            android:src="@drawable/xvideo_cancel_normal" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="49dip"
-            android:layout_alignParentRight="true"
-            android:gravity="end|center_vertical"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/record_camera_led"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/xvideo_camera_flash_led_selector"
-                android:button="@null"
-                android:textColor="@android:color/white" />
-
-            <CheckBox
-                android:id="@+id/record_camera_switcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/xvideo_camera_switch_selector"
-                android:button="@null" />
-
-            <ImageView
-                android:id="@+id/title_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dip"
-                android:padding="10dip"
-                android:src="@drawable/xvideo_next_seletor"
-                android:visibility="gone" />
-        </LinearLayout>
-    </RelativeLayout>
+    <include layout="@layout/xvideo_include_actionbar" />
 
     <com.xuexiang.xvideo.ProgressView
         android:id="@+id/record_progress"
