@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
         }
 //      FFMpegUtils.captureThumbnails("/storage/emulated/0/DCIM/mabeijianxi/1496455533800/1496455533800.mp4", "/storage/emulated/0/DCIM/mabeijianxi/1496455533800/1496455533800.jpg", "1");
 
-        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+        MediaRecorderConfig config = new MediaRecorderConfig.Builder()
                 .fullScreen(needFull)
                 .smallVideoWidth(needFull ? 0 : Integer.valueOf(width))
                 .smallVideoHeight(Integer.valueOf(height))
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 .videoBitrate(Integer.valueOf(bitrate))
                 .captureThumbnailsTime(1)
                 .build();
-        MediaRecorderActivity.goSmallVideoRecorder(this, SendSmallVideoActivity.class.getName(), config);
+        MediaRecorderActivity.startVideoRecorder(this, SendSmallVideoActivity.class.getName(), config);
 
     }
 
@@ -364,8 +364,8 @@ public class MainActivity extends AppCompatActivity {
                         if (!TextUtils.isEmpty(scale)) {
                             fScale = Float.valueOf(scale);
                         }
-                        LocalMediaConfig.Buidler buidler = new LocalMediaConfig.Buidler();
-                        final LocalMediaConfig config = buidler
+                        LocalMediaConfig.Builder builder = new LocalMediaConfig.Builder();
+                        final LocalMediaConfig config = builder
                                 .setVideoPath(_data)
                                 .captureThumbnailsTime(1)
                                 .doH264Compress(compressMode)

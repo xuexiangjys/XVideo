@@ -45,13 +45,13 @@ public final class LocalMediaConfig implements Parcelable {
 
     private final float scale;
 
-    private LocalMediaConfig(Buidler buidler) {
-        this.captureThumbnailsTime = buidler.captureThumbnailsTime;
-        this.FRAME_RATE = buidler.FRAME_RATE;
-        this.compressConfig = buidler.compressConfig;
-        this.videoAddress = buidler.videoPath;
-        this.scale = buidler.scale;
-        this.GO_HOME = buidler.GO_HOME;
+    private LocalMediaConfig(Builder builder) {
+        this.captureThumbnailsTime = builder.captureThumbnailsTime;
+        this.FRAME_RATE = builder.FRAME_RATE;
+        this.compressConfig = builder.compressConfig;
+        this.videoAddress = builder.videoPath;
+        this.scale = builder.scale;
+        this.GO_HOME = builder.GO_HOME;
 
     }
 
@@ -118,7 +118,7 @@ public final class LocalMediaConfig implements Parcelable {
     }
 
 
-    public static class Buidler {
+    public static class Builder {
         /**
          * 录制后会剪切一帧缩略图并保存，就是取时间轴上这个时间的画面
          */
@@ -141,7 +141,7 @@ public final class LocalMediaConfig implements Parcelable {
          * @param captureThumbnailsTime 会剪切一帧缩略图并保存，就是取时间轴上这个时间的画面
          * @return
          */
-        public Buidler captureThumbnailsTime(int captureThumbnailsTime) {
+        public Builder captureThumbnailsTime(int captureThumbnailsTime) {
             this.captureThumbnailsTime = captureThumbnailsTime;
             return this;
         }
@@ -151,23 +151,23 @@ public final class LocalMediaConfig implements Parcelable {
          *                       {@link AutoVBRMode }{@link VBRMode}{@link CBRMode}
          * @return
          */
-        public Buidler doH264Compress(BaseMediaBitrateConfig compressConfig) {
+        public Builder doH264Compress(BaseMediaBitrateConfig compressConfig) {
             this.compressConfig = compressConfig;
             return this;
         }
 
 
-        public Buidler goHome(boolean GO_HOME) {
+        public Builder goHome(boolean GO_HOME) {
             this.GO_HOME = GO_HOME;
             return this;
         }
 
-        public Buidler setFramerate(int MAX_FRAME_RATE) {
+        public Builder setFramerate(int MAX_FRAME_RATE) {
             this.FRAME_RATE = MAX_FRAME_RATE;
             return this;
         }
 
-        public Buidler setVideoPath(String videoPath) {
+        public Builder setVideoPath(String videoPath) {
             this.videoPath = videoPath;
             return this;
         }
@@ -176,7 +176,7 @@ public final class LocalMediaConfig implements Parcelable {
          * @param scale 大于1，否者无效
          * @return
          */
-        public Buidler setScale(float scale) {
+        public Builder setScale(float scale) {
             if (scale <= 1) {
                 this.scale = 1;
             } else {

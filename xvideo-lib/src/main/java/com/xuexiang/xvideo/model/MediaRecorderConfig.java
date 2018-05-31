@@ -64,21 +64,22 @@ public final class MediaRecorderConfig implements Parcelable {
 
     private final boolean GO_HOME;
 
-
-    private MediaRecorderConfig(Buidler buidler) {
-        this.FULL_SCREEN = buidler.FULL_SCREEN;
-        this.RECORD_TIME_MAX = buidler.RECORD_TIME_MAX;
-        this.RECORD_TIME_MIN = buidler.RECORD_TIME_MIN;
-        this.MAX_FRAME_RATE = buidler.MAX_FRAME_RATE;
-        this.captureThumbnailsTime = buidler.captureThumbnailsTime;
-        this.MIN_FRAME_RATE = buidler.MIN_FRAME_RATE;
-        this.SMALL_VIDEO_HEIGHT = buidler.SMALL_VIDEO_HEIGHT;
-        this.SMALL_VIDEO_WIDTH = buidler.SMALL_VIDEO_WIDTH;
-        this.VIDEO_BITRATE = buidler.VIDEO_BITRATE;
-        this.GO_HOME = buidler.GO_HOME;
-
+    public static MediaRecorderConfig newInstance() {
+        return new Builder().build();
     }
 
+    private MediaRecorderConfig(Builder builder) {
+        this.FULL_SCREEN = builder.fullscreen;
+        this.RECORD_TIME_MAX = builder.recordTimeMax;
+        this.RECORD_TIME_MIN = builder.recordTimeMin;
+        this.MAX_FRAME_RATE = builder.maxFrameRate;
+        this.captureThumbnailsTime = builder.captureThumbnailsTime;
+        this.MIN_FRAME_RATE = builder.minFrameRate;
+        this.SMALL_VIDEO_HEIGHT = builder.smallVideoHeight;
+        this.SMALL_VIDEO_WIDTH = builder.smallVideoWidth;
+        this.VIDEO_BITRATE = builder.videoBitrate;
+        this.GO_HOME = builder.goHome;
+    }
 
     protected MediaRecorderConfig(Parcel in) {
         FULL_SCREEN = in.readByte() != 0;
@@ -105,7 +106,7 @@ public final class MediaRecorderConfig implements Parcelable {
         }
     };
 
-    public boolean isGO_HOME() {
+    public boolean isGoHome() {
         return GO_HOME;
     }
 
@@ -142,7 +143,6 @@ public final class MediaRecorderConfig implements Parcelable {
         return SMALL_VIDEO_WIDTH;
     }
 
-
     public int getVideoBitrate() {
         return VIDEO_BITRATE;
     }
@@ -166,47 +166,74 @@ public final class MediaRecorderConfig implements Parcelable {
         dest.writeByte((byte) (GO_HOME ? 1 : 0));
     }
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
 
-    public static class Buidler {
+    /**
+     * 默认录制最长时间
+     */
+    public static final int DEFAULT_RECORD_TIME_MAX = 6 * 1000;
+    /**
+     * 默认录制最短时间
+     */
+    public static final int DEFAULT_RECORD_TIME_MIN = (int) (1.5 * 1000);
+    /**
+     * 默认小视频高度
+     */
+    public static final int DEFAULT_SMALL_VIDEO_HEIGHT = 480;
+    /**
+     * 默认小视频宽度
+     */
+    public static final int DEFAULT_SMALL_VIDEO_WIDTH = 360;
+    /**
+     * 默认最大帧率
+     */
+    public static final int DEFAULT_SMALL_MAX_FRAME_RATE = 20;
+    /**
+     * 默认最小帧率
+     */
+    public static final int DEFAULT_SMALL_MIN_FRAME_RATE = 8;
+
+    public static class Builder {
         /**
          * 录制时间
          */
-        private int RECORD_TIME_MAX = 6 * 1000;
+        private int recordTimeMax = DEFAULT_RECORD_TIME_MAX;
+
+        private int recordTimeMin = DEFAULT_RECORD_TIME_MIN;
 
         /**
          * 小视频高度,TODO 注意：宽度不能随意穿，需要传送手机摄像头手支持录制的视频高度，注意是高度（因为会选择，具体原因不多解析）。
          * 获取摄像头所支持的尺寸的方式是{@link android.graphics.Camera #getSupportedPreviewSizes()}
          * 一般支持的尺寸的高度有：240、480、720、1080等，具体值请用以上方法获取
          */
-        private int SMALL_VIDEO_HEIGHT = 480;
+        private int smallVideoHeight = DEFAULT_SMALL_VIDEO_HEIGHT;
 
         /**
          * 小视频宽度
          */
-        private int SMALL_VIDEO_WIDTH = 360;
+        private int smallVideoWidth = DEFAULT_SMALL_VIDEO_WIDTH;
         /**
          * 最大帧率
          */
-        private int MAX_FRAME_RATE = 20;
+        private int maxFrameRate = DEFAULT_SMALL_MAX_FRAME_RATE;
         /**
          * 最小帧率
          */
-        private int MIN_FRAME_RATE = 8;
+        private int minFrameRate = DEFAULT_SMALL_MIN_FRAME_RATE;
         /**
          * 视频码率//todo 注意传入>0的值后码率模式将从VBR变成CBR
          */
-        private int VIDEO_BITRATE;
+        private int videoBitrate;
         /**
          * 录制后会剪切一帧缩略图并保存，就是取时间轴上这个时间的画面
          */
         private int captureThumbnailsTime = 1;
 
+        private boolean goHome = false;
 
-        private boolean GO_HOME = false;
-
-        public int RECORD_TIME_MIN = (int) (1.5 * 1000);
-
-        private boolean FULL_SCREEN = false;
+        private boolean fullscreen = false;
 
 
         public MediaRecorderConfig build() {
@@ -217,18 +244,17 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param captureThumbnailsTime 录制后会剪切一帧缩略图并保存，就是取时间轴上这个时间的画面
          * @return
          */
-        public Buidler captureThumbnailsTime(int captureThumbnailsTime) {
+        public Builder captureThumbnailsTime(int captureThumbnailsTime) {
             this.captureThumbnailsTime = captureThumbnailsTime;
             return this;
         }
-
 
         /**
          * @param MAX_FRAME_RATE 最大帧率(与视频清晰度、大小息息相关)
          * @return
          */
-        public Buidler maxFrameRate(int MAX_FRAME_RATE) {
-            this.MAX_FRAME_RATE = MAX_FRAME_RATE;
+        public Builder maxFrameRate(int MAX_FRAME_RATE) {
+            this.maxFrameRate = MAX_FRAME_RATE;
             return this;
         }
 
@@ -236,8 +262,8 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param MIN_FRAME_RATE 最小帧率(与视频清晰度、大小息息相关)
          * @return
          */
-        public Buidler minFrameRate(int MIN_FRAME_RATE) {
-            this.MIN_FRAME_RATE = MIN_FRAME_RATE;
+        public Builder minFrameRate(int MIN_FRAME_RATE) {
+            this.minFrameRate = MIN_FRAME_RATE;
             return this;
         }
 
@@ -245,8 +271,8 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param RECORD_TIME_MAX 录制时间
          * @return
          */
-        public Buidler recordTimeMax(int RECORD_TIME_MAX) {
-            this.RECORD_TIME_MAX = RECORD_TIME_MAX;
+        public Builder recordTimeMax(int RECORD_TIME_MAX) {
+            this.recordTimeMax = RECORD_TIME_MAX;
             return this;
         }
 
@@ -254,8 +280,8 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param RECORD_TIME_MIN 最少录制时间
          * @return
          */
-        public Buidler recordTimeMin(int RECORD_TIME_MIN) {
-            this.RECORD_TIME_MIN = RECORD_TIME_MIN;
+        public Builder recordTimeMin(int RECORD_TIME_MIN) {
+            this.recordTimeMin = RECORD_TIME_MIN;
             return this;
         }
 
@@ -266,8 +292,8 @@ public final class MediaRecorderConfig implements Parcelable {
          *                           一般支持的尺寸的高度有：240、480、720、1080等，具体值请用以上方法获取
          * @return
          */
-        public Buidler smallVideoHeight(int SMALL_VIDEO_HEIGHT) {
-            this.SMALL_VIDEO_HEIGHT = SMALL_VIDEO_HEIGHT;
+        public Builder smallVideoHeight(int SMALL_VIDEO_HEIGHT) {
+            this.smallVideoHeight = SMALL_VIDEO_HEIGHT;
             return this;
         }
 
@@ -275,8 +301,8 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param SMALL_VIDEO_WIDTH
          * @return
          */
-        public Buidler smallVideoWidth(int SMALL_VIDEO_WIDTH) {
-            this.SMALL_VIDEO_WIDTH = SMALL_VIDEO_WIDTH;
+        public Builder smallVideoWidth(int SMALL_VIDEO_WIDTH) {
+            this.smallVideoWidth = SMALL_VIDEO_WIDTH;
             return this;
         }
 
@@ -284,18 +310,18 @@ public final class MediaRecorderConfig implements Parcelable {
          * @param VIDEO_BITRATE 视频码率
          * @return
          */
-        public Buidler videoBitrate(int VIDEO_BITRATE) {
-            this.VIDEO_BITRATE = VIDEO_BITRATE;
+        public Builder videoBitrate(int VIDEO_BITRATE) {
+            this.videoBitrate = VIDEO_BITRATE;
             return this;
         }
 
-        public Buidler goHome(boolean GO_HOME) {
-            this.GO_HOME = GO_HOME;
+        public Builder goHome(boolean GO_HOME) {
+            this.goHome = GO_HOME;
             return this;
         }
 
-        public Buidler fullScreen(boolean full) {
-            this.FULL_SCREEN = full;
+        public Builder fullScreen(boolean full) {
+            this.fullscreen = full;
             return this;
         }
     }
