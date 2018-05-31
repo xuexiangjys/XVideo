@@ -13,28 +13,19 @@ android {
                 cppFlags "-std=c++11"
             }
         }
-//        ndk{
-//            abiFilters "armeabi","armeabi-v7a","arm64-v8a","x86","x86_64"
-//        }
         ndk{
-            abiFilters "armeabi-v7a","arm64-v8a","x86","x86_64"  //ABIs [armeabi] are not supported for platform. Supported ABIs are [armeabi-v7a, arm64-v8a, x86, x86_64].
+            abiFilters "armeabi","armeabi-v7a","arm64-v8a","x86","x86_64"
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
     }
 
     lintOptions {
         abortOnError false
-    }
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
-        }
     }
 }
 
