@@ -106,7 +106,6 @@ public class MediaRecorderActivity extends AppCompatActivity implements MediaRec
         bundle.putString(MediaRecorderActivity.OUTPUT_DIRECTORY, mediaObject.getOutputDirectory());
         bundle.putString(MediaRecorderActivity.VIDEO_URI, mediaObject.getOutputTempTranscodingVideoPath());
         bundle.putString(MediaRecorderActivity.VIDEO_SCREENSHOT, mediaObject.getOutputVideoThumbPath());
-        bundle.putString(MediaRecorderActivity.OUTPUT_DIRECTORY, mediaObject.getOutputDirectory());
         intent.putExtras(bundle);
         if (StringUtils.isEmpty(overActivityName)) {
             setResult(RESULT_OK, intent);
