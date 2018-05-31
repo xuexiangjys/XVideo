@@ -852,7 +852,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
                     scaleWH,
                     mMediaObject.getOutputTempTranscodingVideoPath()
             );
-            boolean transCodingFlag = FFmpegBridge.jxFFmpegCMDRun(cmd_transCoding) == 0;
+            boolean transCodingFlag = FFmpegBridge.runFFmpegCMD(cmd_transCoding) == 0;
 
             boolean captureFlag = FFMpegUtils.captureThumbnails(mMediaObject.getOutputTempTranscodingVideoPath(), mMediaObject.getOutputVideoThumbPath(), String.valueOf(CAPTURE_THUMBNAILS_TIME));
 

@@ -16,7 +16,7 @@ import com.xuexiang.xvideo.model.MediaObject;
 public class MediaRecorderNative extends MediaRecorderBase implements MediaRecorder.OnErrorListener, FFmpegBridge.FFmpegStateListener {
 
     public MediaRecorderNative() {
-        FFmpegBridge.registFFmpegStateListener(this);
+        FFmpegBridge.registerFFmpegStateListener(this);
     }
 
     /**
@@ -61,7 +61,6 @@ public class MediaRecorderNative extends MediaRecorderBase implements MediaRecor
      */
     @Override
     public void stopRecord() {
-
         super.stopRecord();
         if (mOnEncodeListener != null) {
             mOnEncodeListener.onEncodeStart();
@@ -104,8 +103,9 @@ public class MediaRecorderNative extends MediaRecorderBase implements MediaRecor
         } catch (Exception e) {
             Log.w("jianxi", "stopRecord", e);
         }
-        if (mOnErrorListener != null)
+        if (mOnErrorListener != null) {
             mOnErrorListener.onVideoError(what, extra);
+        }
     }
 
     /**
@@ -136,6 +136,6 @@ public class MediaRecorderNative extends MediaRecorderBase implements MediaRecor
     }
 
     public void activityStop() {
-        FFmpegBridge.unRegistFFmpegStateListener(this);
+        FFmpegBridge.unRegisterFFmpegStateListener(this);
     }
 }

@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         spinner_need_full.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (((TextView) view).getText().toString().equals("false")) {
+                if ("false".equals(((TextView) view).getText().toString())) {
                     et_width.setVisibility(View.VISIBLE);
                 } else {
                     et_width.setVisibility(View.GONE);

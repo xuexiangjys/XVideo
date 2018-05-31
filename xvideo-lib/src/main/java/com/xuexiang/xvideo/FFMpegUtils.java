@@ -13,8 +13,8 @@ public class FFMpegUtils {
         //ffmpeg -i eis-sample.mpg -s 40x40 -r 1/5 -vframes 10 %d.jpg
 //		FileUtils.deleteFile(outputPath);
 //		String cmd = String.format("ffmpeg  -i  %s  %s  -vframes 1  %s ", "/storage/emulated/0/DCIM/mabeijianxi/1496549287250/1496549287250.mp4", ss, "/storage/emulated/0/DCIM/mabeijianxi/1496549287250/1496549287250.jpg");
-//		FFmpegBridge.jxFFmpegCMDRun(cmd);
-        return FFmpegBridge.jxFFmpegCMDRun(getCaptureThumbnailsCMD(videoPath, outputPath, ss)) == 0;
+//		FFmpegBridge.runFFmpegCMD(cmd);
+        return FFmpegBridge.runFFmpegCMD(getCaptureThumbnailsCMD(videoPath, outputPath, ss)) == 0;
     }
 
     public static String getCaptureThumbnailsCMD(String videoPath, String outputPath, String ss) {
@@ -43,7 +43,7 @@ public class FFMpegUtils {
         else
             ss = " -ss " + ss;
         String cmd = String.format("ffmpeg -d stdout -loglevel verbose -i \"%s\"%s -s %s -vframes 1 \"%s\"", videoPath, ss, wh, outputPath);
-        return FFmpegBridge.jxFFmpegCMDRun(cmd) == 0;
+        return FFmpegBridge.runFFmpegCMD(cmd) == 0;
     }
 
 }

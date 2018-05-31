@@ -567,28 +567,51 @@ public class MediaRecorderActivity extends Activity implements
         return 0;
     }
 
-    private Handler mHandler = new Handler() {
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case HANDLE_INVALIDATE_PROGRESS:
+//                    if (mMediaRecorder != null && !isFinishing()) {
+//                        if (mMediaObject != null && mMediaObject.getMedaParts() != null && mMediaObject.getDuration() >= RECORD_TIME_MAX) {
+//                            mTitleNext.performClick();
+//                            return;
+//                        }
+//                        if (mProgressView != null)
+//                            mProgressView.invalidate();
+//                        // if (mPressedStatus)
+//                        // titleText.setText(String.format("%.1f",
+//                        // mMediaRecorder.getDuration() / 1000F));
+//                        if (mPressedStatus)
+//                            sendEmptyMessageDelayed(0, 30);
+//                    }
+//                    break;
+//            }
+//        }
+//    };
+
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
+        public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case HANDLE_INVALIDATE_PROGRESS:
                     if (mMediaRecorder != null && !isFinishing()) {
                         if (mMediaObject != null && mMediaObject.getMedaParts() != null && mMediaObject.getDuration() >= RECORD_TIME_MAX) {
                             mTitleNext.performClick();
-                            return;
+                            return true;
                         }
-                        if (mProgressView != null)
+                        if (mProgressView != null) {
                             mProgressView.invalidate();
-                        // if (mPressedStatus)
-                        // titleText.setText(String.format("%.1f",
-                        // mMediaRecorder.getDuration() / 1000F));
-                        if (mPressedStatus)
-                            sendEmptyMessageDelayed(0, 30);
+                        }
+                        if (mPressedStatus) {
+                            mHandler.sendEmptyMessageDelayed(0, 30);
+                        }
                     }
-                    break;
+                    return true;
             }
+            return true;
         }
-    };
+    });
 
     @Override
     public void onEncodeStart() {

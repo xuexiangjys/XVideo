@@ -19,13 +19,14 @@ package com.xuexiang.xvideo.jniinterface;
 import java.util.ArrayList;
 
 /**
- *
  * JNI调用桥
+ *
  * @author xuexiang
  * @since 2018/5/30 下午8:21
  */
 public class FFmpegBridge {
-    private static ArrayList<FFmpegStateListener> listeners=new ArrayList();
+    private static ArrayList<FFmpegStateListener> listeners = new ArrayList<>();
+
     static {
         System.loadLibrary("avutil");
         System.loadLibrary("fdk-aac");
@@ -40,32 +41,32 @@ public class FFmpegBridge {
     /**
      * 结束录制并且转码保存完成
      */
-    public static final int ALL_RECORD_END =1;
+    public static final int ALL_RECORD_END = 1;
 
 
-    public final static int ROTATE_0_CROP_LF=0;
+    public final static int ROTATE_0_CROP_LF = 0;
     /**
      * 旋转90度剪裁左上
      */
-    public final static int ROTATE_90_CROP_LT =1;
+    public final static int ROTATE_90_CROP_LT = 1;
     /**
      * 暂时没处理
      */
-    public final static int ROTATE_180=2;
+    public final static int ROTATE_180 = 2;
     /**
      * 旋转270(-90)裁剪左上，左右镜像
      */
-    public final static int ROTATE_270_CROP_LT_MIRROR_LR=3;
+    public final static int ROTATE_270_CROP_LT_MIRROR_LR = 3;
 
 
     /**
-     *
      * @return 返回ffmpeg的编译信息
      */
     public static native String getFFmpegConfig();
 
     /**
-     *  命令形式运行ffmpeg
+     * 命令形式运行ffmpeg
+     *
      * @param cmd
      * @return 返回0表示成功
      */
@@ -73,6 +74,7 @@ public class FFmpegBridge {
 
     /**
      * 编码一帧视频，暂时只能编码yv12视频
+     *
      * @param data
      * @return
      */
@@ -81,63 +83,67 @@ public class FFmpegBridge {
 
     /**
      * 编码一帧音频,暂时只能编码pcm音频
+     *
      * @param data
      * @return
      */
     public static native int encodeFrame2AAC(byte[] data);
 
     /**
-     *  录制结束
+     * 录制结束
+     *
      * @return
      */
     public static native int recordEnd();
 
     /**
      * 初始化
+     *
      * @param debug
      * @param logUrl
      */
-    public static native void initJXFFmpeg(boolean debug,String logUrl);
+    public static native void initJXFFmpeg(boolean debug, String logUrl);
 
 
     public static native void nativeRelease();
 
     /**
-     *
      * @param mediaBasePath 视频存放目录
-     * @param mediaName 视频名称
-     * @param filter 旋转镜像剪切处理
-     * @param in_width 输入视频宽度
-     * @param in_height 输入视频高度
-     * @param out_height 输出视频高度
-     * @param out_width 输出视频宽度
-     * @param frameRate 视频帧率
-     * @param bit_rate 视频比特率
+     * @param mediaName     视频名称
+     * @param filter        旋转镜像剪切处理
+     * @param in_width      输入视频宽度
+     * @param in_height     输入视频高度
+     * @param out_height    输出视频高度
+     * @param out_width     输出视频宽度
+     * @param frameRate     视频帧率
+     * @param bit_rate      视频比特率
      * @return
      */
-    public static native int prepareJXFFmpegEncoder(String mediaBasePath, String mediaName, int filter, int in_width, int in_height, int out_width, int  out_height, int frameRate, long bit_rate);
+    public static native int prepareJXFFmpegEncoder(String mediaBasePath, String mediaName, int filter, int in_width, int in_height, int out_width, int out_height, int frameRate, long bit_rate);
 
 
     /**
      * 命令形式执行
+     *
      * @param cmd
      */
-    public static int jxFFmpegCMDRun(String cmd){
-        String regulation="[ \\t]+";
+    public static int runFFmpegCMD(String cmd) {
+        String regulation = "[ \\t]+";
         final String[] split = cmd.split(regulation);
 
-       return jxCMDRun(split);
+        return jxCMDRun(split);
     }
 
     /**
      * 底层回调
+     *
      * @param state
      * @param what
      */
-    public static synchronized void notifyState(int state,float what){
-        for(FFmpegStateListener listener: listeners){
-            if(listener!=null){
-                if(state== ALL_RECORD_END){
+    public static synchronized void notifyState(int state, float what) {
+        for (FFmpegStateListener listener : listeners) {
+            if (listener != null) {
+                if (state == ALL_RECORD_END) {
                     listener.allRecordEnd();
                 }
             }
@@ -145,20 +151,22 @@ public class FFmpegBridge {
     }
 
     /**
-     *注册录制回调
+     * 注册录制回调
+     *
      * @param listener
      */
-    public static void registFFmpegStateListener(FFmpegStateListener listener){
-
-        if(!listeners.contains(listener)){
+    public static void registerFFmpegStateListener(FFmpegStateListener listener) {
+        if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
-    public static void unRegistFFmpegStateListener(FFmpegStateListener listener){
-        if(listeners.contains(listener)){
+
+    public static void unRegisterFFmpegStateListener(FFmpegStateListener listener) {
+        if (listeners.contains(listener)) {
             listeners.remove(listener);
         }
     }
+
     public interface FFmpegStateListener {
         void allRecordEnd();
     }
