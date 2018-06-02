@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xuexiang.xvideodemo;
+package com.xuexiang.xvideodemo.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,11 +29,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xuexiang.xutil.app.PathUtils;
+import com.xuexiang.xutil.app.SocialShareUtils;
+import com.xuexiang.xutil.file.FileUtils;
 import com.xuexiang.xvideo.MediaRecorderActivity;
+import com.xuexiang.xvideodemo.R;
 
 /**
- * Created by jian on 2016/7/21 15:52
- * mabeijianxi@gmail.com
+ * 发送小视频界面
+ *
+ * @author xuexiang
+ * @since 2018/6/2 下午11:19
  */
 public class SendSmallVideoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -66,20 +72,17 @@ public class SendSmallVideoActivity extends AppCompatActivity implements View.On
         Intent intent = getIntent();
         videoUri = intent.getStringExtra(MediaRecorderActivity.VIDEO_URI);
         videoScreenshot = intent.getStringExtra(MediaRecorderActivity.VIDEO_SCREENSHOT);
-        Bitmap bitmap = BitmapFactory.decodeFile( videoScreenshot);
+        Bitmap bitmap = BitmapFactory.decodeFile(videoScreenshot);
         iv_video_screenshot.setImageBitmap(bitmap);
-        et_send_content.setHint("您视频地址为:"+videoUri);
+        et_send_content.setHint("您视频地址为:" + videoUri);
     }
 
     private void initView() {
         setContentView(R.layout.smallvideo_text_edit_activity);
-
-        tv_cancel = (TextView) findViewById(R.id.tv_cancel);
-        tv_send = (TextView) findViewById(R.id.tv_send);
-        et_send_content = (EditText) findViewById(R.id.et_send_content);
-        iv_video_screenshot = (ImageView) findViewById(R.id.iv_video_screenshot);
-
-
+        tv_cancel = findViewById(R.id.tv_cancel);
+        tv_send = findViewById(R.id.tv_send);
+        et_send_content = findViewById(R.id.et_send_content);
+        iv_video_screenshot = findViewById(R.id.iv_video_screenshot);
     }
 
     @Override
@@ -89,6 +92,7 @@ public class SendSmallVideoActivity extends AppCompatActivity implements View.On
                 hesitate();
                 break;
             case R.id.tv_send:
+                SocialShareUtils.shareVideo(PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoUri)), et_send_content.getText().toString());
                 break;
             case R.id.iv_video_screenshot:
                 startActivity(new Intent(this, VideoPlayerActivity.class).putExtra(
@@ -115,10 +119,9 @@ public class SendSmallVideoActivity extends AppCompatActivity implements View.On
                                 @Override
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
+                                    FileUtils.deleteDir(getIntent().getStringExtra(MediaRecorderActivity.OUTPUT_DIRECTORY));
+
                                     finish();
-
-//                                    FileUtils.deleteDir(getIntent().getStringExtra(MediaRecorderActivity.OUTPUT_DIRECTORY));
-
                                 }
 
                             })

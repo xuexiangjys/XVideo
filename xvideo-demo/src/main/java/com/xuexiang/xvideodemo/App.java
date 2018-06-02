@@ -3,11 +3,14 @@ package com.xuexiang.xvideodemo;
 import android.app.Application;
 import android.content.Context;
 
+import com.xuexiang.xaop.XAOP;
 import com.xuexiang.xutil.XUtil;
 import com.xuexiang.xpage.AppPageConfig;
 import com.xuexiang.xpage.PageConfig;
 import com.xuexiang.xpage.PageConfiguration;
 import com.xuexiang.xpage.model.PageInfo;
+import com.xuexiang.xutil.app.PathUtils;
+import com.xuexiang.xvideo.XCamera;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class App extends Application {
     private void initLibs() {
         XUtil.init(this);
         XUtil.debug(true);
+        XAOP.init(this);
 
         PageConfig.getInstance().setPageConfiguration(new PageConfiguration() {
             @Override
@@ -40,5 +44,16 @@ public class App extends Application {
                 return AppPageConfig.getInstance().getPages();
             }
         }).debug("PageLog").enableWatcher(false).init(this);
+
+        initVideo();
+    }
+
+    /**
+     * 初始化video的存放路径
+     */
+    public static void initVideo() {
+        XCamera.setVideoCachePath(PathUtils.getExtDcimPath() + "/xvideo/");
+        // 初始化拍摄
+        XCamera.initialize(false, null);
     }
 }

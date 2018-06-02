@@ -3,6 +3,7 @@ package com.xuexiang.xvideo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -40,8 +41,9 @@ public class MediaRecorderActivity extends AppCompatActivity implements MediaRec
 
     /**
      * 开始视频录制
+     *
      * @param context
-     * @param overGOActivityName 录制结束后需要跳转的Activity全类名
+     * @param overGOActivityName  录制结束后需要跳转的Activity全类名
      * @param mediaRecorderConfig
      */
     public static void startVideoRecorder(Activity context, String overGOActivityName, MediaRecorderConfig mediaRecorderConfig) {
@@ -52,12 +54,25 @@ public class MediaRecorderActivity extends AppCompatActivity implements MediaRec
 
     /**
      * 开始视频录制
+     *
      * @param context
      * @param mediaRecorderConfig
-     * @param requestCode 请求码
+     * @param requestCode         请求码
      */
     public static void startVideoRecorder(Activity context, MediaRecorderConfig mediaRecorderConfig, int requestCode) {
         context.startActivityForResult(new Intent(context, MediaRecorderActivity.class)
+                .putExtra(MediaRecorderFragment.MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig), requestCode);
+    }
+
+    /**
+     * 开始视频录制
+     *
+     * @param fragment
+     * @param mediaRecorderConfig
+     * @param requestCode         请求码
+     */
+    public static void startVideoRecorder(Fragment fragment, MediaRecorderConfig mediaRecorderConfig, int requestCode) {
+        fragment.startActivityForResult(new Intent(fragment.getContext(), MediaRecorderActivity.class)
                 .putExtra(MediaRecorderFragment.MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig), requestCode);
     }
 
@@ -83,7 +98,7 @@ public class MediaRecorderActivity extends AppCompatActivity implements MediaRec
 
     @Override
     public void onBackPressed() {
-       mMediaRecorderFragment.onBackPressed();
+        mMediaRecorderFragment.onBackPressed();
     }
 
     /**

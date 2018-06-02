@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 xuexiangjys(xuexiangjys@163.com)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,21 +18,21 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_black_85" >
+    android:background="@color/transparent_black_85">
 
     <TextView
         android:id="@+id/txt_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_margin="10dp"
         android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="发布"
         android:textColor="#45C01A"
-        android:visibility="gone"
-        android:text="发布"  />
-    
+        android:textSize="18sp"
+        android:visibility="gone" />
+
     <com.xuexiang.xvideo.SurfaceVideoView
-        android:id="@+id/videoview"
+        android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_centerInParent="true"

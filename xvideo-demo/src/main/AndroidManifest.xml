@@ -23,31 +23,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<activity android:name=".activity.MainActivity">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
-
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".VideoPlayerActivity"
+            android:name=".activity.VideoPlayerActivity"
             android:theme="@style/AppNoBarTheme" />
         <activity
             android:name="com.xuexiang.xvideo.MediaRecorderActivity"
             android:theme="@style/AppNoBarTheme" />
         <activity
-            android:name=".SendSmallVideoActivity"
+            android:name=".activity.SendSmallVideoActivity"
             android:theme="@style/AppNoBarTheme" />
 
     </application>

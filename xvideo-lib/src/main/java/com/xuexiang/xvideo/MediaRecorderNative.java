@@ -9,9 +9,11 @@ import android.util.Log;
 import com.xuexiang.xvideo.jniinterface.FFmpegBridge;
 import com.xuexiang.xvideo.model.MediaObject;
 
-
 /**
  * 视频录制：边录制边底层处理视频（旋转和裁剪）
+ *
+ * @author xuexiang
+ * @since 2018/6/2 下午9:55
  */
 public class MediaRecorderNative extends MediaRecorderBase implements MediaRecorder.OnErrorListener, FFmpegBridge.FFmpegStateListener {
 

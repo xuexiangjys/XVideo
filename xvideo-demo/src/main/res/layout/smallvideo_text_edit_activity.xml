@@ -47,8 +47,7 @@
             android:paddingRight="15dp"
             android:text="发送"
             android:textColor="@color/camera_progress_three"
-            android:textSize="13sp"
-            android:visibility="gone" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <View
@@ -63,7 +62,7 @@
         android:layout_height="66dp"
         android:layout_below="@id/line"
         android:layout_marginTop="15dp"
-        android:paddingRight="15dp">
+        android:paddingEnd="15dp">
 
         <ScrollView
             android:layout_width="0dp"
@@ -73,12 +72,12 @@
             <EditText
                 android:id="@+id/et_send_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:gravity="top"
                 android:hint="呵呵呵呵呵呵呵呵"
                 android:minHeight="66dp"
-                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/grey8"
                 android:textSize="16sp" />
@@ -88,7 +87,6 @@
             android:id="@+id/iv_video_screenshot"
             android:layout_width="87dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_marginLeft="14.5dp" />
 
     </LinearLayout>

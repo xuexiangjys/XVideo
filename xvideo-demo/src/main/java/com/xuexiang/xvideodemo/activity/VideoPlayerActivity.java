@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xuexiang.xvideodemo;
+package com.xuexiang.xvideodemo.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -33,8 +33,10 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 
 import com.xuexiang.xutil.common.StringUtils;
+import com.xuexiang.xutil.display.ScreenUtils;
 import com.xuexiang.xvideo.MediaRecorderBase;
 import com.xuexiang.xvideo.SurfaceVideoView;
+import com.xuexiang.xvideodemo.R;
 
 /**
  * 通用单独播放界面
@@ -78,11 +80,11 @@ public class VideoPlayerActivity extends AppCompatActivity implements
         }
 
         setContentView(R.layout.activity_video_player);
-        mVideoView = (SurfaceVideoView) findViewById(R.id.videoview);
+        mVideoView = findViewById(R.id.video_view);
 
-        int screenWidth = getScreenWidth(this);
-        int videoHight = (int) (screenWidth / (MediaRecorderBase.SMALL_VIDEO_HEIGHT / (MediaRecorderBase.SMALL_VIDEO_WIDTH  * 1.0f)));
-        mVideoView.getLayoutParams().height = videoHight;
+        int screenWidth = ScreenUtils.getScreenWidth();
+        int videoHeight = (int) (screenWidth / (MediaRecorderBase.SMALL_VIDEO_HEIGHT / (MediaRecorderBase.SMALL_VIDEO_WIDTH  * 1.0f)));
+        mVideoView.getLayoutParams().height = videoHeight;
         mVideoView.requestLayout();
 
         mPlayerStatus = findViewById(R.id.play_status);
@@ -91,21 +93,14 @@ public class VideoPlayerActivity extends AppCompatActivity implements
         mVideoView.setOnPreparedListener(this);
         mVideoView.setOnPlayStateListener(this);
         mVideoView.setOnErrorListener(this);
-        mVideoView.setOnClickListener(this);
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnCompletionListener(this);
 
-//		mVideoView.getLayoutParams().height = DeviceUtils.getScreenWidth(this);
 
-        findViewById(R.id.root).setOnClickListener(this);
+        mVideoView.setOnClickListener(this);
+        mPlayerStatus.setOnClickListener(this);
+
         mVideoView.setVideoPath(mPath);
-    }
-
-    public int getScreenWidth(Activity context) {
-        DisplayMetrics mDisplayMetrics = new DisplayMetrics();
-        context.getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
-        int W = mDisplayMetrics.widthPixels;
-        return W;
     }
 
     @Override
@@ -113,10 +108,11 @@ public class VideoPlayerActivity extends AppCompatActivity implements
         super.onResume();
         if (mVideoView != null && mNeedResume) {
             mNeedResume = false;
-            if (mVideoView.isRelease())
+            if (mVideoView.isRelease()) {
                 mVideoView.reOpen();
-            else
+            } else {
                 mVideoView.start();
+            }
         }
     }
 
@@ -188,17 +184,19 @@ public class VideoPlayerActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.videoview:
-            case R.id.root:
-                finish();
+            case R.id.video_view:
+            case R.id.play_status:
+                mVideoView.reOpen();
                 break;
         }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if (!isFinishing())
-            mVideoView.reOpen();
+//        if (!isFinishing()) {
+//            mVideoView.reOpen();
+//        }
+        mPlayerStatus.setVisibility(View.VISIBLE);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

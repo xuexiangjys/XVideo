@@ -14,8 +14,13 @@ import com.xuexiang.xvideo.model.MediaObject;
 import java.util.Iterator;
 
 
+/**
+ * 拍摄视频的进度条
+ *
+ * @author xuexiang
+ * @since 2018/6/2 下午9:55
+ */
 public class ProgressView extends View {
-
     /**
      * 进度条
      */
