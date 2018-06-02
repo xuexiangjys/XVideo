@@ -79,9 +79,7 @@ public class SimpleUseFragment extends XPageFragment implements TxVideoPlayerCon
     @Permission({PermissionConsts.CAMERA, PermissionConsts.STORAGE})
     public void startVideoRecorder(int requestCode) {
         MediaRecorderConfig mediaRecorderConfig = MediaRecorderConfig.newInstance();
-        Intent intent = new Intent(getContext(), MediaRecorderActivity.class)
-                .putExtra(MediaRecorderFragment.MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig);
-        startActivityForResult(intent, requestCode);
+        MediaRecorderActivity.startVideoRecorder(this, mediaRecorderConfig, requestCode);
     }
 
     @SingleClick
