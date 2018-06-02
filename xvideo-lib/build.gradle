@@ -34,6 +34,6 @@ dependencies {
     compileOnly deps.support.app_compat
 }
 
-//apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/JitPackUpload.gradle"
+apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/JitPackUpload.gradle"
 
-apply from: 'https://raw.githubusercontent.com/xuexiangjys/XUtil/master/bintrayUpload.gradle'
+//apply from: 'https://raw.githubusercontent.com/xuexiangjys/XUtil/master/bintrayUpload.gradle'
