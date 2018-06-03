@@ -20,7 +20,7 @@ package com.xuexiang.xvideo.model;
  * @author xuexiang
  * @since 2018/5/30 下午8:26
  */
-public class VBRMode extends BaseMediaBitrateConfig {
+public class VBRMode extends MediaCompressConfig {
     /**
      * @param maxBitrate 最大码率
      * @param bitrate    额定码率

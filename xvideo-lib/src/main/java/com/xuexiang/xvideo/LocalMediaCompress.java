@@ -5,9 +5,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
 import android.text.TextUtils;
+
 import com.xuexiang.xvideo.model.LocalMediaConfig;
 import com.xuexiang.xvideo.model.MediaObject;
-import com.xuexiang.xvideo.model.OnlyCompressOverBean;
+import com.xuexiang.xvideo.model.CompressResult;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,14 +17,17 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- *
+ * 本地视频压缩器
  *
  * @author xuexiang
  * @since 2018/5/30 下午9:17
  */
 public class LocalMediaCompress extends MediaRecorderBase {
     private final String mNeedCompressVideo;
-    private final OnlyCompressOverBean mOnlyCompressOverBean;
+    private final CompressResult mCompressResult;
+    /**
+     * 本地压缩视频的信息
+     */
     private final LocalMediaConfig localMediaConfig;
     protected String scaleWH = "";
 
@@ -40,8 +44,8 @@ public class LocalMediaCompress extends MediaRecorderBase {
             setTranscodingFrameRate(localMediaConfig.getFrameRate());
         }
         mNeedCompressVideo = localMediaConfig.getVideoPath();
-        mOnlyCompressOverBean = new OnlyCompressOverBean();
-        mOnlyCompressOverBean.setVideoPath(mNeedCompressVideo);
+        mCompressResult = new CompressResult();
+        mCompressResult.setVideoPath(mNeedCompressVideo);
 
     }
 
@@ -53,25 +57,25 @@ public class LocalMediaCompress extends MediaRecorderBase {
         String videoH = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
         int srcW = Integer.valueOf(videoW);
         int srcH = Integer.valueOf(videoH);
-        int newsrcW = (int) (srcW / scale);
-        int newsrcH = (int) (srcH / scale);
-        if (newsrcH % 2 != 0) {
-            newsrcH += 1;
+        int newSrcW = (int) (srcW / scale);
+        int newSrcH = (int) (srcH / scale);
+        if (newSrcH % 2 != 0) {
+            newSrcH += 1;
         }
-        if (newsrcW % 2 != 0) {
-            newsrcW += 1;
+        if (newSrcW % 2 != 0) {
+            newSrcW += 1;
         }
         if (s.equals("90") || s.equals("270")) {
-            return String.format("%dx%d", newsrcH,newsrcW);
+            return String.format("%dx%d", newSrcH, newSrcW);
 
         } else if (s.equals("0") || s.equals("180") || s.equals("360")) {
-            return String.format("%dx%d", newsrcW, newsrcH);
-        }else {
+            return String.format("%dx%d", newSrcW, newSrcH);
+        } else {
             return "";
         }
     }
 
-    private void correcAttribute(String videoPath, String picPath) {
+    private void correctAttribute(String videoPath, String picPath) {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(videoPath);
         String s = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
@@ -81,9 +85,9 @@ public class LocalMediaCompress extends MediaRecorderBase {
         if (s.equals("90") || s.equals("270")) {
             SMALL_VIDEO_WIDTH = Integer.valueOf(videoW);
             SMALL_VIDEO_HEIGHT = Integer.valueOf(videoH);
-            String newPicPath = checkPicRotaing(Integer.valueOf(s), picPath);
+            String newPicPath = checkPicRotating(Integer.valueOf(s), picPath);
             if (!TextUtils.isEmpty(newPicPath)) {
-                mOnlyCompressOverBean.setPicPath(newPicPath);
+                mCompressResult.setPicPath(newPicPath);
             }
 
         } else if (s.equals("0") || s.equals("180") || s.equals("360")) {
@@ -98,12 +102,12 @@ public class LocalMediaCompress extends MediaRecorderBase {
         return scaleWH;
     }
 
-    private String checkPicRotaing(int angle, String picPath) {
-        Bitmap bitmap = rotaingImageView(angle, BitmapFactory.decodeFile(picPath));
+    private String checkPicRotating(int angle, String picPath) {
+        Bitmap bitmap = rotatingImageView(angle, BitmapFactory.decodeFile(picPath));
         return savePhoto(bitmap);
     }
 
-    private Bitmap rotaingImageView(int angle, Bitmap bitmap) {
+    private Bitmap rotatingImageView(int angle, Bitmap bitmap) {
 
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -137,19 +141,19 @@ public class LocalMediaCompress extends MediaRecorderBase {
         return f.toString();
     }
 
-    public OnlyCompressOverBean startCompress() {
+    public CompressResult startCompress() {
 
         if (TextUtils.isEmpty(mNeedCompressVideo)) {
-            return mOnlyCompressOverBean;
+            return mCompressResult;
         }
 
-        File f = new File(XCamera.getVideoCachePath());
+        File f = new File(XVideo.getVideoCachePath());
         if (!FileUtils.checkFile(f)) {
             f.mkdirs();
         }
         String key = String.valueOf(System.currentTimeMillis());
         mMediaObject = setOutputDirectory(key,
-                XCamera.getVideoCachePath() + key);
+                XVideo.getVideoCachePath() + key);
 
         mMediaObject.setOutputTempVideoPath(mNeedCompressVideo);
 
@@ -159,15 +163,15 @@ public class LocalMediaCompress extends MediaRecorderBase {
         }
 
         boolean b = doCompress(true);
-        mOnlyCompressOverBean.setSucceed(b);
+        mCompressResult.setSuccess(b);
 
         if (b) {
-            mOnlyCompressOverBean.setVideoPath(mMediaObject.getOutputTempTranscodingVideoPath());
-            mOnlyCompressOverBean.setPicPath(mMediaObject.getOutputVideoThumbPath());
-            correcAttribute(mMediaObject.getOutputTempTranscodingVideoPath(), mMediaObject.getOutputVideoThumbPath());
+            mCompressResult.setVideoPath(mMediaObject.getOutputTempTranscodingVideoPath());
+            mCompressResult.setPicPath(mMediaObject.getOutputVideoThumbPath());
+            correctAttribute(mMediaObject.getOutputTempTranscodingVideoPath(), mMediaObject.getOutputVideoThumbPath());
         }
 
-        return mOnlyCompressOverBean;
+        return mCompressResult;
     }
 
 

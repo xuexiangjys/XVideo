@@ -20,6 +20,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 视频录制的配置对象
+ *
  * @author xuexiang
  * @since 2018/5/30 下午8:26
  */
@@ -75,8 +77,8 @@ public final class MediaRecorderConfig implements Parcelable {
         this.MAX_FRAME_RATE = builder.maxFrameRate;
         this.captureThumbnailsTime = builder.captureThumbnailsTime;
         this.MIN_FRAME_RATE = builder.minFrameRate;
-        this.SMALL_VIDEO_HEIGHT = builder.smallVideoHeight;
-        this.SMALL_VIDEO_WIDTH = builder.smallVideoWidth;
+        this.SMALL_VIDEO_HEIGHT = builder.videoHeight;
+        this.SMALL_VIDEO_WIDTH = builder.videoWidth;
         this.VIDEO_BITRATE = builder.videoBitrate;
         this.GO_HOME = builder.goHome;
     }
@@ -181,11 +183,11 @@ public final class MediaRecorderConfig implements Parcelable {
     /**
      * 默认小视频高度
      */
-    public static final int DEFAULT_SMALL_VIDEO_HEIGHT = 480;
+    public static final int DEFAULT_VIDEO_HEIGHT = 480;
     /**
      * 默认小视频宽度
      */
-    public static final int DEFAULT_SMALL_VIDEO_WIDTH = 360;
+    public static final int DEFAULT_VIDEO_WIDTH = 360;
     /**
      * 默认最大帧率
      */
@@ -204,16 +206,16 @@ public final class MediaRecorderConfig implements Parcelable {
         private int recordTimeMin = DEFAULT_RECORD_TIME_MIN;
 
         /**
-         * 小视频高度,TODO 注意：宽度不能随意穿，需要传送手机摄像头手支持录制的视频高度，注意是高度（因为会选择，具体原因不多解析）。
+         * 视频高度,TODO 注意：宽度不能随意穿，需要传送手机摄像头手支持录制的视频高度，注意是高度（因为会选择，具体原因不多解析）。
          * 获取摄像头所支持的尺寸的方式是{@link android.graphics.Camera #getSupportedPreviewSizes()}
          * 一般支持的尺寸的高度有：240、480、720、1080等，具体值请用以上方法获取
          */
-        private int smallVideoHeight = DEFAULT_SMALL_VIDEO_HEIGHT;
+        private int videoHeight = DEFAULT_VIDEO_HEIGHT;
 
         /**
          * 小视频宽度
          */
-        private int smallVideoWidth = DEFAULT_SMALL_VIDEO_WIDTH;
+        private int videoWidth = DEFAULT_VIDEO_WIDTH;
         /**
          * 最大帧率
          */
@@ -250,68 +252,68 @@ public final class MediaRecorderConfig implements Parcelable {
         }
 
         /**
-         * @param MAX_FRAME_RATE 最大帧率(与视频清晰度、大小息息相关)
+         * @param maxFrameRate 最大帧率(与视频清晰度、大小息息相关)
          * @return
          */
-        public Builder maxFrameRate(int MAX_FRAME_RATE) {
-            this.maxFrameRate = MAX_FRAME_RATE;
+        public Builder maxFrameRate(int maxFrameRate) {
+            this.maxFrameRate = maxFrameRate;
             return this;
         }
 
         /**
-         * @param MIN_FRAME_RATE 最小帧率(与视频清晰度、大小息息相关)
+         * @param minFrameRate 最小帧率(与视频清晰度、大小息息相关)
          * @return
          */
-        public Builder minFrameRate(int MIN_FRAME_RATE) {
-            this.minFrameRate = MIN_FRAME_RATE;
+        public Builder minFrameRate(int minFrameRate) {
+            this.minFrameRate = minFrameRate;
             return this;
         }
 
         /**
-         * @param RECORD_TIME_MAX 录制时间
+         * @param recordTimeMax 最大录制时间
          * @return
          */
-        public Builder recordTimeMax(int RECORD_TIME_MAX) {
-            this.recordTimeMax = RECORD_TIME_MAX;
+        public Builder recordTimeMax(int recordTimeMax) {
+            this.recordTimeMax = recordTimeMax;
             return this;
         }
 
         /**
-         * @param RECORD_TIME_MIN 最少录制时间
+         * @param recordTimeMin 最小录制时间
          * @return
          */
-        public Builder recordTimeMin(int RECORD_TIME_MIN) {
-            this.recordTimeMin = RECORD_TIME_MIN;
+        public Builder recordTimeMin(int recordTimeMin) {
+            this.recordTimeMin = recordTimeMin;
             return this;
         }
 
 
         /**
-         * @param SMALL_VIDEO_HEIGHT 小视频高度 ,TODO 注意：宽度不能随意传入，需要传送手机摄像头手支持录制的视频高度，注意是高度（因为会选择，具体原因不多解析）。
-         *                           获取摄像头所支持的尺寸的方式是{@link android.graphics.Camera #getSupportedPreviewSizes()}
-         *                           一般支持的尺寸的高度有：240、480、720、1080等，具体值请用以上方法获取
+         * @param videoHeight 小视频高度 ,TODO 注意：宽度不能随意传入，需要传送手机摄像头手支持录制的视频高度，注意是高度（因为会选择，具体原因不多解析）。
+         *                    获取摄像头所支持的尺寸的方式是{@link android.graphics.Camera #getSupportedPreviewSizes()}
+         *                    一般支持的尺寸的高度有：240、480、720、1080等，具体值请用以上方法获取
          * @return
          */
-        public Builder smallVideoHeight(int SMALL_VIDEO_HEIGHT) {
-            this.smallVideoHeight = SMALL_VIDEO_HEIGHT;
+        public Builder videoHeight(int videoHeight) {
+            this.videoHeight = videoHeight;
             return this;
         }
 
         /**
-         * @param SMALL_VIDEO_WIDTH
+         * @param videoWidth
          * @return
          */
-        public Builder smallVideoWidth(int SMALL_VIDEO_WIDTH) {
-            this.smallVideoWidth = SMALL_VIDEO_WIDTH;
+        public Builder videoWidth(int videoWidth) {
+            this.videoWidth = videoWidth;
             return this;
         }
 
         /**
-         * @param VIDEO_BITRATE 视频码率
+         * @param videoBitrate 视频码率
          * @return
          */
-        public Builder videoBitrate(int VIDEO_BITRATE) {
-            this.videoBitrate = VIDEO_BITRATE;
+        public Builder videoBitrate(int videoBitrate) {
+            this.videoBitrate = videoBitrate;
             return this;
         }
 

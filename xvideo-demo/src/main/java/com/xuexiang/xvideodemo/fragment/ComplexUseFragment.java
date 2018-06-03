@@ -13,9 +13,9 @@ import com.xuexiang.xaop.consts.PermissionConsts;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xutil.tip.ToastUtils;
-import com.xuexiang.xvideo.MediaRecorderActivity;
+import com.xuexiang.xvideo.XVideo;
 import com.xuexiang.xvideo.model.AutoVBRMode;
-import com.xuexiang.xvideo.model.BaseMediaBitrateConfig;
+import com.xuexiang.xvideo.model.MediaCompressConfig;
 import com.xuexiang.xvideo.model.MediaRecorderConfig;
 import com.xuexiang.xvideodemo.R;
 import com.xuexiang.xvideodemo.activity.SendSmallVideoActivity;
@@ -125,7 +125,7 @@ public class ComplexUseFragment extends XPageFragment {
         String s = spinnerNeedFull.getSelectedItem().toString();
         boolean needFull = Boolean.parseBoolean(s);
 
-        BaseMediaBitrateConfig recordMode;
+        MediaCompressConfig recordMode;
 
         recordMode = new AutoVBRMode();
 
@@ -147,16 +147,16 @@ public class ComplexUseFragment extends XPageFragment {
         }
 
         MediaRecorderConfig config = new MediaRecorderConfig.Builder()
-                .fullScreen(needFull)
-                .smallVideoWidth(needFull ? 0 : Integer.valueOf(width))
-                .smallVideoHeight(Integer.valueOf(height))
-                .recordTimeMax(Integer.valueOf(maxTime))
-                .recordTimeMin(Integer.valueOf(minTime))
-                .maxFrameRate(Integer.valueOf(maxFrameRate))
-                .videoBitrate(Integer.valueOf(bitrate))
+                .fullScreen(needFull)  //是否全屏
+                .videoWidth(needFull ? 0 : Integer.valueOf(width)) //视频的宽
+                .videoHeight(Integer.valueOf(height))  //视频的高
+                .recordTimeMax(Integer.valueOf(maxTime)) //最大录制时间
+                .recordTimeMin(Integer.valueOf(minTime)) //最小录制时间
+                .maxFrameRate(Integer.valueOf(maxFrameRate)) //最大帧率
+                .videoBitrate(Integer.valueOf(bitrate)) //视频码率
                 .captureThumbnailsTime(1)
                 .build();
-        MediaRecorderActivity.startVideoRecorder(getActivity(), SendSmallVideoActivity.class.getName(), config);
+        XVideo.startVideoRecorder(this, SendSmallVideoActivity.class.getName(), config);
 
     }
 

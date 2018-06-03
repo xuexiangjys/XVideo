@@ -17,23 +17,25 @@
 package com.xuexiang.xvideo.model;
 
 /**
+ * 视频压缩结果
+ *
  * @author xuexiang
  * @since 2018/5/30 下午8:26
  */
-public class OnlyCompressOverBean {
+public class CompressResult {
 
-    private boolean succeed;
+    private boolean isSuccess;
 
     private String videoPath;
 
     private String picPath;
 
-    public boolean isSucceed() {
-        return succeed;
+    public boolean isSuccess() {
+        return isSuccess;
     }
 
-    public void setSucceed(boolean succeed) {
-        this.succeed = succeed;
+    public void setSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
     public String getVideoPath() {

@@ -23,11 +23,12 @@ import com.xuexiang.xutil.system.AppExecutors;
 import com.xuexiang.xutil.tip.ToastUtils;
 import com.xuexiang.xvideo.LocalMediaCompress;
 import com.xuexiang.xvideo.MediaRecorderActivity;
+import com.xuexiang.xvideo.XVideo;
 import com.xuexiang.xvideo.model.AutoVBRMode;
-import com.xuexiang.xvideo.model.BaseMediaBitrateConfig;
+import com.xuexiang.xvideo.model.MediaCompressConfig;
 import com.xuexiang.xvideo.model.CBRMode;
 import com.xuexiang.xvideo.model.LocalMediaConfig;
-import com.xuexiang.xvideo.model.OnlyCompressOverBean;
+import com.xuexiang.xvideo.model.CompressResult;
 import com.xuexiang.xvideo.model.VBRMode;
 import com.xuexiang.xvideodemo.R;
 import com.xuexiang.xvideodemo.activity.SendSmallVideoActivity;
@@ -135,7 +136,7 @@ public class VideoCompressFragment extends XPageFragment {
             String path = PathUtils.getFilePathByUri(intent.getData());
             if (!StringUtils.isEmpty(path)) {
 
-                BaseMediaBitrateConfig compressMode;
+                MediaCompressConfig compressMode;
 
                 int compressModeCheckedId = rgMode.getCheckedRadioButtonId();
 
@@ -180,11 +181,11 @@ public class VideoCompressFragment extends XPageFragment {
                 }
                 LocalMediaConfig.Builder builder = new LocalMediaConfig.Builder();
                 final LocalMediaConfig config = builder
-                        .setVideoPath(path)
+                        .setVideoPath(path)  //设置需要进行视频压缩的视频路径
                         .captureThumbnailsTime(1)
-                        .doH264Compress(compressMode)
-                        .setFramerate(iRate)
-                        .setScale(fScale)
+                        .doH264Compress(compressMode) //设置视频压缩的模式
+                        .setFramerate(iRate)  //帧率
+                        .setScale(fScale) //压缩比例
                         .build();
                 showProgress("", "压缩中...", -1);
                 AppExecutors.get().singleIO().execute(new Runnable() {
@@ -201,12 +202,12 @@ public class VideoCompressFragment extends XPageFragment {
     }
 
     private void startCompressVideo(LocalMediaConfig config) {
-        OnlyCompressOverBean onlyCompressOverBean = new LocalMediaCompress(config).startCompress();
+        CompressResult compressResult = XVideo.startCompressVideo(config);
         hideProgress();
         Intent intent = new Intent(getContext(), SendSmallVideoActivity.class);
-        intent.putExtra(MediaRecorderActivity.OUTPUT_DIRECTORY, FileUtils.getFileByPath(onlyCompressOverBean.getVideoPath()).getParentFile().getPath());
-        intent.putExtra(MediaRecorderActivity.VIDEO_URI, onlyCompressOverBean.getVideoPath());
-        intent.putExtra(MediaRecorderActivity.VIDEO_SCREENSHOT, onlyCompressOverBean.getPicPath());
+        intent.putExtra(MediaRecorderActivity.OUTPUT_DIRECTORY, FileUtils.getFileByPath(compressResult.getVideoPath()).getParentFile().getPath());
+        intent.putExtra(MediaRecorderActivity.VIDEO_URI, compressResult.getVideoPath());
+        intent.putExtra(MediaRecorderActivity.VIDEO_SCREENSHOT, compressResult.getPicPath());
         startActivity(intent);
     }
 

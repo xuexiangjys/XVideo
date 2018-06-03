@@ -10,7 +10,7 @@ import com.xuexiang.xpage.PageConfig;
 import com.xuexiang.xpage.PageConfiguration;
 import com.xuexiang.xpage.model.PageInfo;
 import com.xuexiang.xutil.app.PathUtils;
-import com.xuexiang.xvideo.XCamera;
+import com.xuexiang.xvideo.XVideo;
 
 import java.util.List;
 
@@ -52,8 +52,8 @@ public class App extends Application {
      * 初始化video的存放路径
      */
     public static void initVideo() {
-        XCamera.setVideoCachePath(PathUtils.getExtDcimPath() + "/xvideo/");
+        XVideo.setVideoCachePath(PathUtils.getExtDcimPath() + "/xvideo/");
         // 初始化拍摄
-        XCamera.initialize(false, null);
+        XVideo.initialize(false, null);
     }
 }

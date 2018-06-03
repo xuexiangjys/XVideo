@@ -78,7 +78,7 @@ public class SendSmallVideoActivity extends AppCompatActivity implements View.On
     }
 
     private void initView() {
-        setContentView(R.layout.smallvideo_text_edit_activity);
+        setContentView(R.layout.activity_smallvideo_text_edit);
         tv_cancel = findViewById(R.id.tv_cancel);
         tv_send = findViewById(R.id.tv_send);
         et_send_content = findViewById(R.id.et_send_content);

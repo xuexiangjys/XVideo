@@ -16,7 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 
 import com.xuexiang.xvideo.jniinterface.FFmpegBridge;
-import com.xuexiang.xvideo.model.BaseMediaBitrateConfig;
+import com.xuexiang.xvideo.model.MediaCompressConfig;
 import com.xuexiang.xvideo.model.MediaObject;
 
 import java.io.File;
@@ -38,7 +38,6 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      * 小视频宽度
      */
     public static int SMALL_VIDEO_WIDTH = 360;
-
 
     /**
      * 未知错误
@@ -113,7 +112,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
     protected static int CAPTURE_THUMBNAILS_TIME = 1;
 
 
-    protected BaseMediaBitrateConfig compressConfig;
+    protected MediaCompressConfig compressConfig;
     /**
      * 摄像头对象
      */
@@ -833,7 +832,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
     protected Boolean doCompress(boolean mergeFlag) {
         if (compressConfig != null) {
             String vbr = " -vbr 4 ";
-            if (compressConfig != null && compressConfig.getMode() == BaseMediaBitrateConfig.MODE.CBR) {
+            if (compressConfig != null && compressConfig.getMode() == MediaCompressConfig.MODE.CBR) {
                 vbr = "";
             }
             String scaleWH = getScaleWH();
@@ -881,20 +880,20 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
     }
 
 
-    protected String getBitrateModeCommand(BaseMediaBitrateConfig config, String defualtCmd, boolean needSymbol) {
+    protected String getBitrateModeCommand(MediaCompressConfig config, String defualtCmd, boolean needSymbol) {
         String add = "";
         if (TextUtils.isEmpty(defualtCmd)) {
             defualtCmd = "";
         }
         if (config != null) {
-            if (config.getMode() == BaseMediaBitrateConfig.MODE.VBR) {
+            if (config.getMode() == MediaCompressConfig.MODE.VBR) {
                 if (needSymbol) {
                     add = String.format(" -x264opts \"bitrate=%d:vbv-maxrate=%d\" ", config.getBitrate(), config.getMaxBitrate());
                 } else {
                     add = String.format(" -x264opts bitrate=%d:vbv-maxrate=%d ", config.getBitrate(), config.getMaxBitrate());
                 }
                 return add;
-            } else if (config.getMode() == BaseMediaBitrateConfig.MODE.CBR) {
+            } else if (config.getMode() == MediaCompressConfig.MODE.CBR) {
                 if (needSymbol) {
                     add = String.format(" -x264opts \"bitrate=%d:vbv-bufsize=%d:nal_hrd=cbr\" ", config.getBitrate(), config.getBufSize());
                 } else {
@@ -908,12 +907,12 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
         return defualtCmd;
     }
 
-    protected String getBitrateCrfSize(BaseMediaBitrateConfig config, String defualtCmd, boolean nendSymbol) {
+    protected String getBitrateCrfSize(MediaCompressConfig config, String defualtCmd, boolean nendSymbol) {
         if (TextUtils.isEmpty(defualtCmd)) {
             defualtCmd = "";
         }
         String add = "";
-        if (config != null && config.getMode() == BaseMediaBitrateConfig.MODE.AUTO_VBR && config.getCrfSize() > 0) {
+        if (config != null && config.getMode() == MediaCompressConfig.MODE.AUTO_VBR && config.getCrfSize() > 0) {
             if (nendSymbol) {
                 add = String.format("-crf \"%d\" ", config.getCrfSize());
             } else {
@@ -925,7 +924,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
         return add;
     }
 
-    protected String getBitrateVelocity(BaseMediaBitrateConfig config, String defualtCmd, boolean nendSymbol) {
+    protected String getBitrateVelocity(MediaCompressConfig config, String defualtCmd, boolean nendSymbol) {
         if (TextUtils.isEmpty(defualtCmd)) {
             defualtCmd = "";
         }

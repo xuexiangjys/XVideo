@@ -17,26 +17,23 @@
 package com.xuexiang.xvideo.model;
 
 /**
- *
- *
  * @author xuexiang
  * @since 2018/5/30 下午8:25
  */
-public class AutoVBRMode extends BaseMediaBitrateConfig {
+public class AutoVBRMode extends MediaCompressConfig {
 
-    public AutoVBRMode(){
-        this.mode= MODE.AUTO_VBR;
+    public AutoVBRMode() {
+        this.mode = MODE.AUTO_VBR;
     }
 
     /**
-     *
      * @param crfSize 压缩等级，0~51，值越大约模糊，视频越小，建议18~28.
      */
-    public AutoVBRMode(int crfSize){
-        if(crfSize<0||crfSize>51){
-            throw  new IllegalArgumentException("crfSize 在0~51之间");
+    public AutoVBRMode(int crfSize) {
+        if (crfSize < 0 || crfSize > 51) {
+            throw new IllegalArgumentException("crfSize 在0~51之间");
         }
-        this.crfSize=crfSize;
-        this.mode= MODE.AUTO_VBR;
+        this.crfSize = crfSize;
+        this.mode = MODE.AUTO_VBR;
     }
 }

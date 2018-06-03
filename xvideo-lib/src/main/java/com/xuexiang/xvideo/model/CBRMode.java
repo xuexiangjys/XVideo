@@ -20,7 +20,7 @@ package com.xuexiang.xvideo.model;
  * @author xuexiang
  * @since 2018/5/30 下午8:25
  */
-public class CBRMode extends BaseMediaBitrateConfig {
+public class CBRMode extends MediaCompressConfig {
 
     /**
      * @param bufSize

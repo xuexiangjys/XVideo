@@ -20,10 +20,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 视频压缩配置
+ *
  * @author xuexiang
  * @since 2018/5/30 下午8:25
  */
-public class BaseMediaBitrateConfig implements Parcelable {
+public class MediaCompressConfig implements Parcelable {
     /**
      * 码率模式{@link MODE}
      */
@@ -47,12 +49,12 @@ public class BaseMediaBitrateConfig implements Parcelable {
      */
     protected String velocity;
 
-    protected BaseMediaBitrateConfig() {
+    protected MediaCompressConfig() {
 
     }
 
 
-    protected BaseMediaBitrateConfig(Parcel in) {
+    protected MediaCompressConfig(Parcel in) {
         mode = in.readInt();
         bitrate = in.readInt();
         maxBitrate = in.readInt();
@@ -76,15 +78,15 @@ public class BaseMediaBitrateConfig implements Parcelable {
         return 0;
     }
 
-    public static final Creator<BaseMediaBitrateConfig> CREATOR = new Creator<BaseMediaBitrateConfig>() {
+    public static final Creator<MediaCompressConfig> CREATOR = new Creator<MediaCompressConfig>() {
         @Override
-        public BaseMediaBitrateConfig createFromParcel(Parcel in) {
-            return new BaseMediaBitrateConfig(in);
+        public MediaCompressConfig createFromParcel(Parcel in) {
+            return new MediaCompressConfig(in);
         }
 
         @Override
-        public BaseMediaBitrateConfig[] newArray(int size) {
-            return new BaseMediaBitrateConfig[size];
+        public MediaCompressConfig[] newArray(int size) {
+            return new MediaCompressConfig[size];
         }
     };
 
@@ -116,7 +118,7 @@ public class BaseMediaBitrateConfig implements Parcelable {
      * @param velocity 转码速度控制,速度越快体积将变大，质量也稍差一点点 {@link Velocity}
      * @return
      */
-    public BaseMediaBitrateConfig setVelocity(String velocity) {
+    public MediaCompressConfig setVelocity(String velocity) {
         this.velocity = velocity;
         return this;
     }

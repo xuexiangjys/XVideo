@@ -21,6 +21,7 @@ import com.xuexiang.xutil.common.StringUtils;
 import com.xuexiang.xutil.file.FileUtils;
 import com.xuexiang.xvideo.MediaRecorderActivity;
 import com.xuexiang.xvideo.MediaRecorderFragment;
+import com.xuexiang.xvideo.XVideo;
 import com.xuexiang.xvideo.model.MediaRecorderConfig;
 import com.xuexiang.xvideodemo.R;
 
@@ -74,12 +75,13 @@ public class SimpleUseFragment extends XPageFragment implements TxVideoPlayerCon
 
 
     /**
+     * 开始录制视频
      * @param requestCode 请求码
      */
     @Permission({PermissionConsts.CAMERA, PermissionConsts.STORAGE})
     public void startVideoRecorder(int requestCode) {
         MediaRecorderConfig mediaRecorderConfig = MediaRecorderConfig.newInstance();
-        MediaRecorderActivity.startVideoRecorder(this, mediaRecorderConfig, requestCode);
+        XVideo.startVideoRecorder(this, mediaRecorderConfig, requestCode);
     }
 
     @SingleClick

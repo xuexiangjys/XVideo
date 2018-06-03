@@ -282,13 +282,13 @@ public class MediaRecorderFragment extends Fragment implements
         mMediaRecorder.setOnEncodeListener(this);
         mMediaRecorder.setOnPreparedListener(this);
 
-        File f = new File(XCamera.getVideoCachePath());
+        File f = new File(XVideo.getVideoCachePath());
         if (!FileUtils.checkFile(f)) {
             f.mkdirs();
         }
         String key = String.valueOf(System.currentTimeMillis());
         mMediaObject = mMediaRecorder.setOutputDirectory(key,
-                XCamera.getVideoCachePath() + key);
+                XVideo.getVideoCachePath() + key);
         mMediaRecorder.setSurfaceHolder(mSurfaceView.getHolder());
         mMediaRecorder.prepare();
     }

@@ -28,7 +28,7 @@ public final class LocalMediaConfig implements Parcelable {
     /**
      * 帧率
      */
-    private final int FRAME_RATE;
+    private final int frameRate;
 
     /**
      * 录制后会剪切一帧缩略图并保存，就是取时间轴上这个时间的画面
@@ -37,9 +37,9 @@ public final class LocalMediaConfig implements Parcelable {
 
     private final boolean GO_HOME;
     /**
-     * 码率配置
+     * 视频压缩配置
      */
-    private final BaseMediaBitrateConfig compressConfig;
+    private final MediaCompressConfig compressConfig;
 
     private final String videoAddress;
 
@@ -47,7 +47,7 @@ public final class LocalMediaConfig implements Parcelable {
 
     private LocalMediaConfig(Builder builder) {
         this.captureThumbnailsTime = builder.captureThumbnailsTime;
-        this.FRAME_RATE = builder.FRAME_RATE;
+        this.frameRate = builder.frameRate;
         this.compressConfig = builder.compressConfig;
         this.videoAddress = builder.videoPath;
         this.scale = builder.scale;
@@ -57,10 +57,10 @@ public final class LocalMediaConfig implements Parcelable {
 
 
     protected LocalMediaConfig(Parcel in) {
-        FRAME_RATE = in.readInt();
+        frameRate = in.readInt();
         captureThumbnailsTime = in.readInt();
         GO_HOME = in.readByte() != 0;
-        compressConfig = in.readParcelable(BaseMediaBitrateConfig.class.getClassLoader());
+        compressConfig = in.readParcelable(MediaCompressConfig.class.getClassLoader());
         videoAddress = in.readString();
         scale = in.readFloat();
     }
@@ -86,11 +86,11 @@ public final class LocalMediaConfig implements Parcelable {
     }
 
     public int getFrameRate() {
-        return FRAME_RATE;
+        return frameRate;
     }
 
 
-    public BaseMediaBitrateConfig getCompressConfig() {
+    public MediaCompressConfig getCompressConfig() {
         return compressConfig;
     }
 
@@ -109,7 +109,7 @@ public final class LocalMediaConfig implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(FRAME_RATE);
+        dest.writeInt(frameRate);
         dest.writeInt(captureThumbnailsTime);
         dest.writeByte((byte) (GO_HOME ? 1 : 0));
         dest.writeParcelable(compressConfig, flags);
@@ -127,8 +127,8 @@ public final class LocalMediaConfig implements Parcelable {
 
         private boolean GO_HOME = false;
 
-        private BaseMediaBitrateConfig compressConfig;
-        private int FRAME_RATE;
+        private MediaCompressConfig compressConfig;
+        private int frameRate;
 
         private String videoPath;
         private float scale;
@@ -151,7 +151,7 @@ public final class LocalMediaConfig implements Parcelable {
          *                       {@link AutoVBRMode }{@link VBRMode}{@link CBRMode}
          * @return
          */
-        public Builder doH264Compress(BaseMediaBitrateConfig compressConfig) {
+        public Builder doH264Compress(MediaCompressConfig compressConfig) {
             this.compressConfig = compressConfig;
             return this;
         }
@@ -163,7 +163,7 @@ public final class LocalMediaConfig implements Parcelable {
         }
 
         public Builder setFramerate(int MAX_FRAME_RATE) {
-            this.FRAME_RATE = MAX_FRAME_RATE;
+            this.frameRate = MAX_FRAME_RATE;
             return this;
         }
 
