@@ -111,6 +111,12 @@ final LocalMediaConfig config = builder
 CompressResult compressResult = XVideo.startCompressVideo(config);
 ```
 
+## 混淆配置
+
+```
+-keep class com.xuexiang.xvideo.jniinterface.** { *; }
+```
+
 ## 特别感谢
 
 https://github.com/mabeijianxi/small-video-record

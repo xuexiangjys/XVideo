@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (isNeedPackage.toBoolean()) {
                 signingConfig signingConfigs.release
@@ -39,13 +39,16 @@ android {
         applicationVariants.all { variant ->
             variant.outputs.all {
                 if (variant.buildType.name.equals('release')) {
-                    outputFileName = "demo.apk"
+                    outputFileName = "xvideo_demo.apk"
                 }
             }
         }
     }
 
+    aaptOptions { cruncherEnabled = false }
+
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
     }
     
