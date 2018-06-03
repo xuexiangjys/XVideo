@@ -20,7 +20,7 @@ import com.xuexiang.xutil.common.ClickUtils;
  * </p>
  * ================================================
  */
-@Page
+@Page(name = "XVideo 小视频录制")
 public class MainFragment extends XPageContainerListFragment {
     /**
      * 获取页面的类集合[使用@Page注解进行注册的页面]

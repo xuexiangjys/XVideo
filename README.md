@@ -21,12 +21,6 @@
 
 ![][demo-gif]
 
-### Demo下载
-
-[![downloads][download-svg]][download-url]
-
-![][download-img]
-
 ## 添加Gradle依赖
 
 1.在项目根目录的 build.gradle 的 repositories 添加:
@@ -133,6 +127,3 @@ https://github.com/mabeijianxi/small-video-record
 [api]: https://android-arsenal.com/api?level=14
 
 [demo-gif]: https://github.com/xuexiangjys/XVideo/blob/master/img/xvideo.gif
-[download-svg]: https://img.shields.io/badge/downloads-1.8M-blue.svg
-[download-url]: https://github.com/xuexiangjys/XVideo/blob/master/apk/xvideo_demo.apk?raw=true
-[download-img]: https://github.com/xuexiangjys/XVideo/blob/master/img/download.png
