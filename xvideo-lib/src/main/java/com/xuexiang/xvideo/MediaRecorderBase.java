@@ -514,7 +514,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      * 注意：自动对焦参数cam_mode和cam-mode可能有些设备不支持，导致视频画面变形，需要判断一下，已知有"GT-N7100", "GT-I9308"会存在这个问题
      */
     @SuppressWarnings("deprecation")
-    protected void prepareCameraParaments() {
+    protected void prepareCameraParameters() {
         if (mParameters == null)
             return;
         List<Integer> rates = mParameters.getSupportedPreviewFrameRates();
@@ -624,7 +624,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
             //设置摄像头参数
             mParameters = camera.getParameters();
             mSupportedPreviewSizes = mParameters.getSupportedPreviewSizes();//	获取支持的尺寸
-            prepareCameraParaments();
+            prepareCameraParameters();
             camera.setParameters(mParameters);
             setPreviewCallback();
             camera.startPreview();
