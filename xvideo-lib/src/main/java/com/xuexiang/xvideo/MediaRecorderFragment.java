@@ -349,10 +349,13 @@ public class MediaRecorderFragment extends Fragment implements
         super.onResume();
         if (mMediaRecorder == null) {
             initMediaRecorder();
-        } else {
+        } else { //回到页面
             mRecordLed.setChecked(false);
             mMediaRecorder.prepare();
             mProgressView.setData(mMediaObject);
+            if (mMediaRecorder instanceof MediaRecorderNative) {
+                ((MediaRecorderNative) mMediaRecorder).activityResume();
+            }
         }
     }
 
@@ -377,7 +380,6 @@ public class MediaRecorderFragment extends Fragment implements
         mPressedStatus = true;
 //		TODO 开始录制的图标
         mRecordController.animate().scaleX(0.8f).scaleY(0.8f).setDuration(500).start();
-
 
         if (mHandler != null) {
             mHandler.removeMessages(HANDLE_INVALIDATE_PROGRESS);

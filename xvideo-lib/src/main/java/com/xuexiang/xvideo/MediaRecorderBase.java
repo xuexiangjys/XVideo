@@ -260,10 +260,17 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
             case Camera.CameraInfo.CAMERA_FACING_FRONT:
             case Camera.CameraInfo.CAMERA_FACING_BACK:
                 mCameraId = cameraFacingFront;
-                stopPreview();
-                startPreview();
+                resetPreview();
                 break;
         }
+    }
+
+    /**
+     * 重置预览显示
+     */
+    private void resetPreview() {
+        stopPreview();
+        startPreview();
     }
 
     /**
@@ -415,8 +422,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      */
     public void prepare() {
         mPrepared = true;
-        if (mSurfaceCreated)
+        if (mSurfaceCreated) {
             startPreview();
+        }
     }
 
     /**
@@ -712,17 +720,25 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
     public void surfaceCreated(SurfaceHolder holder) {
         this.mSurfaceHolder = holder;
         this.mSurfaceCreated = true;
-        if (mPrepared && !mStartPreview)
-            startPreview();
+        if (mPrepared) {
+            if (!mStartPreview) {
+                startPreview();
+            } else {
+                resetPreview();
+            }
+        }
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        this.mSurfaceHolder = holder;
+        mSurfaceHolder = holder;
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        if (mRecording) {
+            setStopDate();
+        }
         mSurfaceHolder = null;
         mSurfaceCreated = false;
     }
@@ -736,26 +752,6 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
         camera.addCallbackBuffer(data);
-    }
-
-    /**
-     * 测试PreviewFrame回调次数，时间1分钟
-     */
-    public void testPreviewFrameCallCount() {
-        new CountDownTimer(1 * 60 * 1000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Log.e("[Vitamio Recorder]", "testFrameRate..." + mPreviewFrameCallCount);
-                mPreviewFrameCallCount = 0;
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-
-        }.start();
     }
 
     /**

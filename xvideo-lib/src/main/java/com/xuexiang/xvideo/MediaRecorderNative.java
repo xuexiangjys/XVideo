@@ -140,4 +140,8 @@ public class MediaRecorderNative extends MediaRecorderBase implements MediaRecor
     public void activityStop() {
         FFmpegBridge.unRegisterFFmpegStateListener(this);
     }
+
+    public void activityResume() {
+        FFmpegBridge.registerFFmpegStateListener(this);
+    }
 }
