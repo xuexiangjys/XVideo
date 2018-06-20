@@ -2,6 +2,7 @@ package com.xuexiang.xvideodemo.activity;
 
 import android.os.Bundle;
 
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xuexiang.xvideodemo.fragment.MainFragment;
 import com.xuexiang.xpage.base.XPageActivity;
 
@@ -21,6 +22,18 @@ public class MainActivity extends XPageActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openPage(MainFragment.class);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+        super.onBackPressed();
     }
 }
 
