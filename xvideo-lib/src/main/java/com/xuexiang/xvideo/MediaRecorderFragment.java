@@ -406,8 +406,7 @@ public class MediaRecorderFragment extends Fragment implements
                                 @Override
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
-                                    mMediaObject.delete();
-                                    onCancel();
+                                    cancelRecord();
                                 }
 
                             })
@@ -416,6 +415,13 @@ public class MediaRecorderFragment extends Fragment implements
             return;
         }
 
+        cancelRecord();
+    }
+
+    /**
+     * 取消视频录制
+     */
+    protected void cancelRecord() {
         if (mMediaObject != null) {
             mMediaObject.delete();
         }
