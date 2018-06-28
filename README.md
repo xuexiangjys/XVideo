@@ -39,7 +39,7 @@ allprojects {
 ```
 dependencies {
     ···
-    implementation 'com.github.xuexiangjys:XVideo:1.0.1'
+    implementation 'com.github.xuexiangjys:XVideo:1.0.2'
 }
 ```
 
@@ -121,7 +121,7 @@ https://github.com/mabeijianxi/small-video-record
 
 ![qq交流群](https://img-blog.csdn.net/20180514131732423?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3h1ZXhpYW5nanlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
-[xvsvg]: https://img.shields.io/badge/XVideo-v1.0.1-brightgreen.svg
+[xvsvg]: https://img.shields.io/badge/XVideo-v1.0.2-brightgreen.svg
 [xv]: https://github.com/xuexiangjys/XVideo
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
 [api]: https://android-arsenal.com/api?level=14
