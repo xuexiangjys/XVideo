@@ -2,9 +2,10 @@ package com.xuexiang.xvideo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.WorkerThread;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+
+import androidx.annotation.WorkerThread;
+import androidx.fragment.app.Fragment;
 
 import com.xuexiang.xvideo.jniinterface.FFmpegBridge;
 import com.xuexiang.xvideo.model.CompressResult;

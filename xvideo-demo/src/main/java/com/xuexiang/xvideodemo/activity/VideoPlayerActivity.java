@@ -17,7 +17,6 @@
 package com.xuexiang.xvideodemo.activity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -25,12 +24,12 @@ import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xuexiang.xutil.common.StringUtils;
 import com.xuexiang.xutil.display.ScreenUtils;
@@ -207,18 +206,20 @@ public class VideoPlayerActivity extends AppCompatActivity implements
                 // 音频和视频数据不正确
                 break;
             case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-                if (!isFinishing())
+                if (!isFinishing()) {
                     mVideoView.pause();
+                }
                 break;
             case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                if (!isFinishing())
+                if (!isFinishing()) {
                     mVideoView.start();
+                }
                 break;
             case MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     mVideoView.setBackground(null);
                 } else {
-                    mVideoView.setBackgroundDrawable(null);
+                    mVideoView.setBackground(null);
                 }
                 break;
         }

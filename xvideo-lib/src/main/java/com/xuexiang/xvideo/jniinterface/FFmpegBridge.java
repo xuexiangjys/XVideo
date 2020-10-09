@@ -70,7 +70,7 @@ public class FFmpegBridge {
      * @param cmd
      * @return 返回0表示成功
      */
-    private static native int jxCMDRun(String cmd[]);
+    private static native int jxCMDRun(String[] cmd);
 
     /**
      * 编码一帧视频，暂时只能编码yv12视频

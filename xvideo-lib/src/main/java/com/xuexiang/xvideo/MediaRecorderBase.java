@@ -308,8 +308,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
                 if (mOnErrorListener != null) {
                     mOnErrorListener.onVideoError(MEDIA_ERROR_CAMERA_AUTO_FOCUS, 0);
                 }
-                if (e != null)
+                if (e != null) {
                     Log.e("jianxi", "autoFocus", e);
+                }
             }
         }
         return false;
@@ -352,8 +353,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
                     mParameters.setFocusAreas(focusAreas);
                 }
 
-                if (mParameters.getMaxNumMeteringAreas() > 0)
+                if (mParameters.getMaxNumMeteringAreas() > 0) {
                     mParameters.setMeteringAreas(focusAreas);
+                }
 
                 mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);
                 camera.setParameters(mParameters);
@@ -363,8 +365,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
                 if (mOnErrorListener != null) {
                     mOnErrorListener.onVideoError(MEDIA_ERROR_CAMERA_AUTO_FOCUS, 0);
                 }
-                if (e != null)
+                if (e != null) {
                     Log.e("jianxi", "autoFocus", e);
+                }
             }
         }
         return false;
@@ -377,10 +380,11 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
         if (mParameters != null) {
             try {
                 final String mode = mParameters.getFlashMode();
-                if (TextUtils.isEmpty(mode) || Camera.Parameters.FLASH_MODE_OFF.equals(mode))
+                if (TextUtils.isEmpty(mode) || Camera.Parameters.FLASH_MODE_OFF.equals(mode)) {
                     setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                else
+                } else {
                     setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                }
                 return true;
             } catch (Exception e) {
                 Log.e("jianxi", "toggleFlashMode", e);
@@ -413,8 +417,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      * 设置码率
      */
     public void setVideoBitRate(int bitRate) {
-        if (bitRate > 0)
+        if (bitRate > 0) {
             mVideoBitrate = bitRate;
+        }
     }
 
     /**
@@ -440,10 +445,11 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
             if (f != null) {
                 if (f.exists()) {
                     //已经存在，删除
-                    if (f.isDirectory())
+                    if (f.isDirectory()) {
                         FileUtils.deleteDir(f);
-                    else
+                    } else {
                         FileUtils.deleteFile(f);
+                    }
                 }
 
                 if (f.mkdirs()) {
@@ -461,6 +467,7 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
         this.mMediaObject = mediaObject;
     }
 
+    @Override
     public void stopRecord() {
         mRecording = false;
         setStopDate();
@@ -523,8 +530,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      */
     @SuppressWarnings("deprecation")
     protected void prepareCameraParameters() {
-        if (mParameters == null)
+        if (mParameters == null) {
             return;
+        }
         List<Integer> rates = mParameters.getSupportedPreviewFrameRates();
         if (rates != null) {
             if (rates.contains(MAX_FRAME_RATE)) {
@@ -580,12 +588,14 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
         //		if (mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT && isSupported(mParameters.getSupportedSceneModes(), Camera.Parameters.SCENE_MODE_PORTRAIT))
         //			mParameters.setSceneMode(Camera.Parameters.SCENE_MODE_PORTRAIT);
 
-        if (isSupported(mParameters.getSupportedWhiteBalance(), "auto"))
+        if (isSupported(mParameters.getSupportedWhiteBalance(), "auto")) {
             mParameters.setWhiteBalance("auto");
+        }
 
         //是否支持视频防抖
-        if ("true".equals(mParameters.get("video-stabilization-supported")))
+        if ("true".equals(mParameters.get("video-stabilization-supported"))) {
             mParameters.set("video-stabilization", "true");
+        }
 
         //		mParameters.set("recording-hint", "false");
         //
@@ -608,17 +618,19 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
      * 开始预览
      */
     public void startPreview() {
-        if (mStartPreview || mSurfaceHolder == null || !mPrepared)
+        if (mStartPreview || mSurfaceHolder == null || !mPrepared) {
             return;
-        else
+        } else {
             mStartPreview = true;
+        }
 
         try {
 
-            if (mCameraId == Camera.CameraInfo.CAMERA_FACING_BACK)
+            if (mCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 camera = Camera.open();
-            else
+            } else {
                 camera = Camera.open(mCameraId);
+            }
             camera.setDisplayOrientation(90);
             try {
                 camera.setPreviewDisplay(mSurfaceHolder);
@@ -638,8 +650,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
             camera.startPreview();
 
             onStartPreviewSuccess();
-            if (mOnPreparedListener != null)
+            if (mOnPreparedListener != null) {
                 mOnPreparedListener.onPrepared();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             if (mOnErrorListener != null) {
@@ -745,8 +758,9 @@ public abstract class MediaRecorderBase implements Callback, PreviewCallback, IM
 
     @Override
     public void onAudioError(int what, String message) {
-        if (mOnErrorListener != null)
+        if (mOnErrorListener != null) {
             mOnErrorListener.onAudioError(what, message);
+        }
     }
 
     @Override

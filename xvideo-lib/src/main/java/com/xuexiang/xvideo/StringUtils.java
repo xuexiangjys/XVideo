@@ -84,8 +84,9 @@ final class StringUtils {
                 result.append(key);
                 result.append(separator);
             }
-            if (result.length() > 0)
+            if (result.length() > 0) {
                 result.delete(result.length() - 1, result.length());
+            }
         }
         return result.toString();
     }
@@ -97,7 +98,7 @@ final class StringUtils {
      * @return
      */
     public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0 || str.equalsIgnoreCase("null");
+        return str == null || str.length() == 0 || "null".equalsIgnoreCase(str);
     }
 
     public static boolean isNotEmpty(String str) {
@@ -128,10 +129,11 @@ final class StringUtils {
         if (start_pos > -1) {
             int end_pos = StringUtils.isEmpty(end) ? -1 : search.indexOf(end,
                     start_pos + start_len);
-            if (end_pos > -1)
+            if (end_pos > -1) {
                 return search.substring(start_pos + start.length(), end_pos);
-            else
+            } else {
                 return search.substring(start_pos + start.length());
+            }
         }
         return defaultValue;
     }
@@ -158,8 +160,9 @@ final class StringUtils {
         StringBuffer result = new StringBuffer();
         if (strs != null) {
             for (String str : strs) {
-                if (str != null)
+                if (str != null) {
                     result.append(str);
+                }
             }
         }
         return result.toString();

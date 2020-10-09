@@ -91,21 +91,35 @@ public class ComplexUseFragment extends XPageFragment {
     }
 
     private void getSupportCameraSize() {
-        Camera back = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-        List<Camera.Size> backSizeList = back.getParameters().getSupportedPreviewSizes();
         StringBuilder str = new StringBuilder();
-        str.append("经过检查您的摄像头，如使用后置摄像头您可以输入的高度有：");
-        for (Camera.Size bSize : backSizeList) {
-            str.append(bSize.height + "、");
+        Camera back = null;
+        try {
+            back = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        back.release();
-        Camera front = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
-        List<Camera.Size> frontSizeList = front.getParameters().getSupportedPreviewSizes();
-        str.append("如使用前置摄像头您可以输入的高度有：");
-        for (Camera.Size fSize : frontSizeList) {
-            str.append(fSize.height + "、");
+        if (back != null) {
+            List<Camera.Size> backSizeList = back.getParameters().getSupportedPreviewSizes();
+            str.append("经过检查您的摄像头，如使用后置摄像头您可以输入的高度有：");
+            for (Camera.Size bSize : backSizeList) {
+                str.append(bSize.height).append("、");
+            }
+            back.release();
         }
-        front.release();
+        Camera front = null;
+        try {
+            front = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (front != null) {
+            List<Camera.Size> frontSizeList = front.getParameters().getSupportedPreviewSizes();
+            str.append("如使用前置摄像头您可以输入的高度有：");
+            for (Camera.Size fSize : frontSizeList) {
+                str.append(fSize.height).append("、");
+            }
+            front.release();
+        }
         tvSize.setText(str);
     }
 
@@ -129,7 +143,7 @@ public class ComplexUseFragment extends XPageFragment {
 
         recordMode = new AutoVBRMode();
 
-        if (!spinnerRecord.getSelectedItem().toString().equals("none")) {
+        if (!"none".equals(spinnerRecord.getSelectedItem().toString())) {
             recordMode.setVelocity(spinnerRecord.getSelectedItem().toString());
         }
 
@@ -142,7 +156,7 @@ public class ComplexUseFragment extends XPageFragment {
                         || checkStrEmpty(maxTime, "请输入最大录制时间")
                         || checkStrEmpty(minTime, "请输小最大录制时间")
                         || checkStrEmpty(bitrate, "请输入比特率")
-                ) {
+        ) {
             return;
         }
 

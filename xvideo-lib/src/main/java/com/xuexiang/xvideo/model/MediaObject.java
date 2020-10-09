@@ -232,8 +232,9 @@ public class MediaObject implements Serializable {
      * 删除分块
      */
     public void removePart(MediaPart part, boolean deleteFile) {
-        if (mMediaList != null)
+        if (mMediaList != null) {
             mMediaList.remove(part);
+        }
 
         if (part != null) {
             part.stop();
@@ -315,18 +316,20 @@ public class MediaObject implements Serializable {
         StringBuilder yuv = new StringBuilder();
         if (mMediaList != null && mMediaList.size() > 0) {
             if (mMediaList.size() == 1) {
-                if (Utils.isEmpty(mMediaList.get(0).tempMediaPath))
+                if (Utils.isEmpty(mMediaList.get(0).tempMediaPath)) {
                     yuv.append(mMediaList.get(0).mediaPath);
-                else
+                } else {
                     yuv.append(mMediaList.get(0).tempMediaPath);
+                }
             } else {
                 yuv.append("concat:");
                 for (int i = 0, j = mMediaList.size(); i < j; i++) {
                     MediaPart part = mMediaList.get(i);
-                    if (Utils.isEmpty(part.tempMediaPath))
+                    if (Utils.isEmpty(part.tempMediaPath)) {
                         yuv.append(part.mediaPath);
-                    else
+                    } else {
                         yuv.append(part.tempMediaPath);
+                    }
                     if (i + 1 < j) {
                         yuv.append("|");
                     }
@@ -340,18 +343,20 @@ public class MediaObject implements Serializable {
         StringBuilder yuv = new StringBuilder();
         if (mMediaList != null && mMediaList.size() > 0) {
             if (mMediaList.size() == 1) {
-                if (Utils.isEmpty(mMediaList.get(0).tempAudioPath))
+                if (Utils.isEmpty(mMediaList.get(0).tempAudioPath)) {
                     yuv.append(mMediaList.get(0).audioPath);
-                else
+                } else {
                     yuv.append(mMediaList.get(0).tempAudioPath);
+                }
             } else {
                 yuv.append("concat:");
                 for (int i = 0, j = mMediaList.size(); i < j; i++) {
                     MediaPart part = mMediaList.get(i);
-                    if (Utils.isEmpty(part.tempAudioPath))
+                    if (Utils.isEmpty(part.tempAudioPath)) {
                         yuv.append(part.audioPath);
-                    else
+                    } else {
                         yuv.append(part.tempAudioPath);
+                    }
                     if (i + 1 < j) {
                         yuv.append("|");
                     }
@@ -365,23 +370,27 @@ public class MediaObject implements Serializable {
      * 获取当前分块
      */
     public MediaPart getCurrentPart() {
-        if (mCurrentPart != null)
+        if (mCurrentPart != null) {
             return mCurrentPart;
-        if (mMediaList != null && mMediaList.size() > 0)
+        }
+        if (mMediaList != null && mMediaList.size() > 0) {
             mCurrentPart = mMediaList.get(mMediaList.size() - 1);
+        }
         return mCurrentPart;
     }
 
     public int getCurrentIndex() {
         MediaPart part = getCurrentPart();
-        if (part != null)
+        if (part != null) {
             return part.index;
+        }
         return 0;
     }
 
     public MediaPart getPart(int index) {
-        if (mCurrentPart != null && index < mMediaList.size())
+        if (mCurrentPart != null && index < mMediaList.size()) {
             return mMediaList.get(index);
+        }
         return null;
     }
 
@@ -516,16 +525,18 @@ public class MediaObject implements Serializable {
          * 写入音频数据
          */
         public void writeAudioData(byte[] buffer) throws IOException {
-            if (mCurrentOutputAudio != null)
+            if (mCurrentOutputAudio != null) {
                 mCurrentOutputAudio.write(buffer);
+            }
         }
 
         /**
          * 写入视频数据
          */
         public void writeVideoData(byte[] buffer) throws IOException {
-            if (mCurrentOutputVideo != null)
+            if (mCurrentOutputVideo != null) {
                 mCurrentOutputVideo.write(buffer);
+            }
         }
 
         public void prepare() {

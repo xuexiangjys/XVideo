@@ -121,13 +121,15 @@ public class ProgressView extends View {
                 case HANDLER_INVALIDATE_ACTIVE:
                     invalidate();
                     mActiveState = !mActiveState;
-                    if (!mStop)
+                    if (!mStop) {
                         sendEmptyMessageDelayed(0, 300);
+                    }
                     break;
                 case HANDLER_INVALIDATE_RECORDING:
                     invalidate();
-                    if (mProgressChanged)
+                    if (mProgressChanged) {
                         sendEmptyMessageDelayed(0, 50);
+                    }
                     break;
             }
             super.dispatchMessage(msg);
@@ -153,8 +155,9 @@ public class ProgressView extends View {
             boolean hasOutDuration = false;
             int currentDuration = mMediaObject.getDuration();
             hasOutDuration = currentDuration > mMaxDuration;
-            if (hasOutDuration)
+            if (hasOutDuration) {
                 maxDuration = currentDuration;
+            }
 
             while (hasNext) {
                 MediaObject.MediaPart vp = iterator.next();
@@ -214,8 +217,9 @@ public class ProgressView extends View {
         //
         // 闪
         if (mActiveState) {
-            if (right + 8 >= width)
+            if (right + 8 >= width) {
                 right = width - 8;
+            }
             canvas.drawRect(right, 0.0F, right + 8, getMeasuredHeight(),
                     mActivePaint);
         }

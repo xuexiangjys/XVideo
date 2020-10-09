@@ -35,9 +35,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly deps.support.app_compat
+    compileOnly deps.androidx.appcompat
+
 }
 
-apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/JitPackUpload.gradle"
-
-//apply from: 'https://raw.githubusercontent.com/xuexiangjys/XUtil/master/bintrayUpload.gradle'
+apply from: "../JitPackUpload.gradle"

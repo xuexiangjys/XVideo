@@ -8,9 +8,6 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -24,6 +21,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.xuexiang.xvideo.model.MediaObject;
 import com.xuexiang.xvideo.model.MediaRecorderConfig;
@@ -314,8 +315,9 @@ public class MediaRecorderFragment extends Fragment implements
                     }
 
                     // 取消回删
-                    if (cancelDelete())
+                    if (cancelDelete()) {
                         return true;
+                    }
                     if (!startState) {
                         startState = true;
                         startRecord();
@@ -515,8 +517,9 @@ public class MediaRecorderFragment extends Fragment implements
                         part.remove = true;
                     }
                 }
-                if (mProgressView != null)
+                if (mProgressView != null) {
                     mProgressView.invalidate();
+                }
 
                 // 检测按钮状态
                 checkStatus();
@@ -556,8 +559,9 @@ public class MediaRecorderFragment extends Fragment implements
                     mCameraSwitch.setVisibility(View.GONE);
                 }
                 // 视频必须大于3秒
-                if (mTitleNext.getVisibility() != View.INVISIBLE)
+                if (mTitleNext.getVisibility() != View.INVISIBLE) {
                     mTitleNext.setVisibility(View.INVISIBLE);
+                }
             } else {
                 // 下一步
                 if (mTitleNext.getVisibility() != View.VISIBLE) {
@@ -571,21 +575,20 @@ public class MediaRecorderFragment extends Fragment implements
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-                case HANDLE_INVALIDATE_PROGRESS:
-                    if (mMediaRecorder != null && !getActivity().isFinishing()) {
-                        if (mMediaObject != null && mMediaObject.getMedaParts() != null && mMediaObject.getDuration() >= recordTimeMax) {
-                            mTitleNext.performClick();
-                            return true;
-                        }
-                        if (mProgressView != null) {
-                            mProgressView.invalidate();
-                        }
-                        if (mPressedStatus) {
-                            mHandler.sendEmptyMessageDelayed(0, 30);
-                        }
+            if (msg.what == HANDLE_INVALIDATE_PROGRESS) {
+                if (mMediaRecorder != null && !getActivity().isFinishing()) {
+                    if (mMediaObject != null && mMediaObject.getMedaParts() != null && mMediaObject.getDuration() >= recordTimeMax) {
+                        mTitleNext.performClick();
+                        return true;
                     }
-                    return true;
+                    if (mProgressView != null) {
+                        mProgressView.invalidate();
+                    }
+                    if (mPressedStatus) {
+                        mHandler.sendEmptyMessageDelayed(0, 30);
+                    }
+                }
+                return true;
             }
             return true;
         }

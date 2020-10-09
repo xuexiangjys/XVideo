@@ -111,7 +111,9 @@ final class DeviceUtils {
             if (features != null) {
                 for (FeatureInfo f : features) {
                     if (f != null && PackageManager.FEATURE_CAMERA_FLASH.equals(f.name)) //判断设备是否支持闪光灯
+                    {
                         return true;
+                    }
                 }
             }
         }

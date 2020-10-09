@@ -20,7 +20,6 @@ import com.xuexiang.xutil.app.SocialShareUtils;
 import com.xuexiang.xutil.common.StringUtils;
 import com.xuexiang.xutil.file.FileUtils;
 import com.xuexiang.xvideo.MediaRecorderActivity;
-import com.xuexiang.xvideo.MediaRecorderFragment;
 import com.xuexiang.xvideo.XVideo;
 import com.xuexiang.xvideo.model.MediaRecorderConfig;
 import com.xuexiang.xvideodemo.R;
@@ -92,7 +91,7 @@ public class SimpleUseFragment extends XPageFragment implements TxVideoPlayerCon
                 startVideoRecorder(REQUEST_CODE_VIDEO);
                 break;
             case R.id.btn_share:
-                SocialShareUtils.shareVideo(PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoPlayer.getUrl())), "小视频分享");
+                SocialShareUtils.shareVideo(getActivity(), PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoPlayer.getUrl())), SocialShareUtils.ShareType.DEFAULT);
                 break;
         }
     }
@@ -127,7 +126,6 @@ public class SimpleUseFragment extends XPageFragment implements TxVideoPlayerCon
             Glide.with(this)
                     .load(screenshot)
                     .placeholder(R.drawable.player_img_default)
-                    .crossFade()
                     .into(controller.imageView());
         }
         return controller;
@@ -138,6 +136,6 @@ public class SimpleUseFragment extends XPageFragment implements TxVideoPlayerCon
      */
     @Override
     public void onShare() {
-        SocialShareUtils.shareVideo(PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoPlayer.getUrl())), "小视频分享");
+        SocialShareUtils.shareVideo(getActivity(), PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoPlayer.getUrl())), SocialShareUtils.ShareType.DEFAULT);
     }
 }

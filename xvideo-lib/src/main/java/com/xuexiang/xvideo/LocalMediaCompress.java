@@ -65,10 +65,10 @@ public class LocalMediaCompress extends MediaRecorderBase {
         if (newSrcW % 2 != 0) {
             newSrcW += 1;
         }
-        if (s.equals("90") || s.equals("270")) {
+        if ("90".equals(s) || "270".equals(s)) {
             return String.format("%dx%d", newSrcH, newSrcW);
 
-        } else if (s.equals("0") || s.equals("180") || s.equals("360")) {
+        } else if ("0".equals(s) || "180".equals(s) || "360".equals(s)) {
             return String.format("%dx%d", newSrcW, newSrcH);
         } else {
             return "";
@@ -82,7 +82,7 @@ public class LocalMediaCompress extends MediaRecorderBase {
         String videoW = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
         String videoH = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
 
-        if (s.equals("90") || s.equals("270")) {
+        if ("90".equals(s) || "270".equals(s)) {
             SMALL_VIDEO_WIDTH = Integer.valueOf(videoW);
             SMALL_VIDEO_HEIGHT = Integer.valueOf(videoH);
             String newPicPath = checkPicRotating(Integer.valueOf(s), picPath);
@@ -90,7 +90,7 @@ public class LocalMediaCompress extends MediaRecorderBase {
                 mCompressResult.setPicPath(newPicPath);
             }
 
-        } else if (s.equals("0") || s.equals("180") || s.equals("360")) {
+        } else if ("0".equals(s) || "180".equals(s) || "360".equals(s)) {
             SMALL_VIDEO_HEIGHT = Integer.valueOf(videoW);
             SMALL_VIDEO_WIDTH = Integer.valueOf(videoH);
         }

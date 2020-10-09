@@ -21,13 +21,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xuexiang.xutil.app.PathUtils;
 import com.xuexiang.xutil.app.SocialShareUtils;
@@ -92,11 +93,13 @@ public class SendSmallVideoActivity extends AppCompatActivity implements View.On
                 hesitate();
                 break;
             case R.id.tv_send:
-                SocialShareUtils.shareVideo(PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoUri)), et_send_content.getText().toString());
+                SocialShareUtils.shareVideo(this, PathUtils.getMediaContentUri(FileUtils.getFileByPath(videoUri)), SocialShareUtils.ShareType.DEFAULT);
                 break;
             case R.id.iv_video_screenshot:
                 startActivity(new Intent(this, VideoPlayerActivity.class).putExtra(
                         "path", videoUri));
+                break;
+            default:
                 break;
         }
     }

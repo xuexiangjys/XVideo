@@ -52,7 +52,7 @@ public class App extends Application {
      * 初始化video的存放路径
      */
     public static void initVideo() {
-        XVideo.setVideoCachePath(PathUtils.getExtDcimPath() + "/xvideo/");
+        XVideo.setVideoCachePath(PathUtils.getExtDCIMPath() + "/xvideo/");
         // 初始化拍摄
         XVideo.initialize(false, null);
     }

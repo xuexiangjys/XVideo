@@ -192,11 +192,13 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
         //可用状态{Prepared, Started, Paused, PlaybackCompleted}
         if (mMediaPlayer != null && (mCurrentState == STATE_PREPARED || mCurrentState == STATE_PAUSED || mCurrentState == STATE_PLAYING || mCurrentState == STATE_PLAYBACK_COMPLETED)) {
             try {
-                if (!isPlaying())
+                if (!isPlaying()) {
                     mMediaPlayer.start();
+                }
                 mCurrentState = STATE_PLAYING;
-                if (mOnPlayStateListener != null)
+                if (mOnPlayStateListener != null) {
                     mOnPlayStateListener.onStateChanged(true);
+                }
             } catch (IllegalStateException e) {
                 tryAgain(e);
             } catch (Exception e) {
@@ -212,8 +214,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
             try {
                 mMediaPlayer.pause();
                 mCurrentState = STATE_PAUSED;
-                if (mOnPlayStateListener != null)
+                if (mOnPlayStateListener != null) {
                     mOnPlayStateListener.onStateChanged(false);
+                }
             } catch (IllegalStateException e) {
                 tryAgain(e);
             } catch (Exception e) {
@@ -259,8 +262,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
         //可用状态{Prepared, Started, Paused, PlaybackCompleted}
         if (mMediaPlayer != null && (mCurrentState == STATE_PREPARED || mCurrentState == STATE_PLAYING || mCurrentState == STATE_PAUSED || mCurrentState == STATE_PLAYBACK_COMPLETED)) {
             try {
-                if (msec < 0)
+                if (msec < 0) {
                     msec = 0;
+                }
                 mMediaPlayer.seekTo(msec);
             } catch (IllegalStateException e) {
             } catch (Exception e) {
@@ -375,8 +379,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
         }
         if (exception != null) {
             mCurrentState = STATE_ERROR;
-            if (mErrorListener != null)
+            if (mErrorListener != null) {
                 mErrorListener.onError(mMediaPlayer, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
+            }
         }
     }
 
@@ -385,8 +390,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
         public void onCompletion(MediaPlayer mp) {
             mCurrentState = STATE_PLAYBACK_COMPLETED;
             //			mTargetState = STATE_PLAYBACK_COMPLETED;
-            if (mOnCompletionListener != null)
+            if (mOnCompletionListener != null) {
                 mOnCompletionListener.onCompletion(mp);
+            }
         }
     };
 
@@ -409,8 +415,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
 
                 switch (mTargetState) {
                     case STATE_PREPARED:
-                        if (mOnPreparedListener != null)
+                        if (mOnPreparedListener != null) {
                             mOnPreparedListener.onPrepared(mMediaPlayer);
+                        }
                         break;
                     case STATE_PLAYING:
                         start();
@@ -426,8 +433,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mVideoWidth = width;
             mVideoHeight = height;
-            if (mOnVideoSizeChangedListener != null)
+            if (mOnVideoSizeChangedListener != null) {
                 mOnVideoSizeChangedListener.onVideoSizeChanged(mp, width, height);
+            }
         }
 
     };
@@ -436,8 +444,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
 
         @Override
         public boolean onInfo(MediaPlayer mp, int what, int extra) {
-            if (mOnInfoListener != null)
+            if (mOnInfoListener != null) {
                 mOnInfoListener.onInfo(mp, what, extra);
+            }
             return false;
         }
     };
@@ -446,8 +455,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
 
         @Override
         public void onSeekComplete(MediaPlayer mp) {
-            if (mOnSeekCompleteListener != null)
+            if (mOnSeekCompleteListener != null) {
                 mOnSeekCompleteListener.onSeekComplete(mp);
+            }
         }
     };
 
@@ -457,8 +467,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
             mCurrentState = STATE_ERROR;
             //			mTargetState = STATE_ERROR;
             //FIX，可以考虑出错以后重新开始
-            if (mOnErrorListener != null)
+            if (mOnErrorListener != null) {
                 mOnErrorListener.onError(mp, framework_err, impl_err);
+            }
 
             return true;
         }
@@ -504,8 +515,9 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
      * 定时暂停
      */
     public void pauseDelayed(int delayMillis) {
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE))
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_PARSE);
+        }
         mVideoHandler.sendEmptyMessageDelayed(HANDLER_MESSAGE_PARSE, delayMillis);
     }
 
@@ -514,26 +526,32 @@ public class SurfaceVideoView extends SurfaceView implements Callback {
      */
     public void pauseClearDelayed() {
         pause();
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE))
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_PARSE);
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP))
+        }
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_LOOP);
+        }
     }
 
     /**
      * 区域内循环播放
      */
     public void loopDelayed(int startTime, int endTime) {
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE))
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_PARSE)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_PARSE);
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP))
+        }
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_LOOP);
+        }
         int delayMillis = endTime - startTime;
         seekTo(startTime);
-        if (!isPlaying())
+        if (!isPlaying()) {
             start();
-        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP))
+        }
+        if (mVideoHandler.hasMessages(HANDLER_MESSAGE_LOOP)) {
             mVideoHandler.removeMessages(HANDLER_MESSAGE_LOOP);
+        }
         mVideoHandler.sendMessageDelayed(mVideoHandler.obtainMessage(HANDLER_MESSAGE_LOOP, getCurrentPosition(), delayMillis), delayMillis);
     }
 

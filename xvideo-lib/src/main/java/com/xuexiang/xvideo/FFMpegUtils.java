@@ -18,10 +18,11 @@ public class FFMpegUtils {
     }
 
     public static String getCaptureThumbnailsCMD(String videoPath, String outputPath, String ss) {
-        if (ss == null)
+        if (ss == null) {
             ss = "";
-        else
+        } else {
             ss = " -ss " + ss;
+        }
         return String.format("ffmpeg  -i  %s  %s  -vframes 1  %s ", videoPath, ss, outputPath);
     }
 
@@ -38,10 +39,11 @@ public class FFMpegUtils {
         //ffmpeg -i /storage/emulated/0/DCIM/04.04.mp4 -s 84x84 -vframes 1 /storage/emulated/0/DCIM/Camera/miaopai/1388843007381.jpg
         //ffmpeg -i eis-sample.mpg -s 40x40 -r 1/5 -vframes 10 %d.jpg
         FileUtils.deleteFile(outputPath);
-        if (ss == null)
+        if (ss == null) {
             ss = "";
-        else
+        } else {
             ss = " -ss " + ss;
+        }
         String cmd = String.format("ffmpeg -d stdout -loglevel verbose -i \"%s\"%s -s %s -vframes 1 \"%s\"", videoPath, ss, wh, outputPath);
         return FFmpegBridge.runFFmpegCMD(cmd) == 0;
     }

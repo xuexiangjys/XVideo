@@ -32,7 +32,9 @@ public class MainActivity extends XPageActivity {
 
     @Override
     public void onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+        if (NiceVideoPlayerManager.instance().onBackPressd()) {
+            return;
+        }
         super.onBackPressed();
     }
 }

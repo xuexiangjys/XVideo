@@ -165,7 +165,7 @@ public class VideoCompressFragment extends XPageFragment {
                     compressMode = new AutoVBRMode();
                 }
 
-                if (!spinnerCompressSpeed.getSelectedItem().toString().equals("none")) {
+                if (!"none".equals(spinnerCompressSpeed.getSelectedItem().toString())) {
                     compressMode.setVelocity(spinnerCompressSpeed.getSelectedItem().toString());
                 }
 

@@ -7,6 +7,7 @@ import com.xuexiang.xaop.annotation.Permission;
 import com.xuexiang.xaop.consts.PermissionConsts;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageContainerListFragment;
+import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xutil.common.ClickUtils;
 
@@ -20,7 +21,7 @@ import com.xuexiang.xutil.common.ClickUtils;
  * </p>
  * ================================================
  */
-@Page(name = "XVideo 小视频录制")
+@Page(name = "XVideo 小视频录制", anim = CoreAnim.none)
 public class MainFragment extends XPageContainerListFragment {
     /**
      * 获取页面的类集合[使用@Page注解进行注册的页面]

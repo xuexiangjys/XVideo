@@ -98,8 +98,9 @@ public class MediaRecorderNative extends MediaRecorderBase implements MediaRecor
     @Override
     public void onError(MediaRecorder mr, int what, int extra) {
         try {
-            if (mr != null)
+            if (mr != null) {
                 mr.reset();
+            }
         } catch (IllegalStateException e) {
             Log.w("jianxi", "stopRecord", e);
         } catch (Exception e) {
