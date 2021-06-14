@@ -25,8 +25,6 @@
 
 [![Github](https://img.shields.io/badge/downloads-Github-blue.svg)](https://github.com/xuexiangjys/XVideo/blob/master/apk/xvideo_demo.apk?raw=true)
 
-![xvideo_download.png](https://img.rruu.net/image/5f8089a7733f2)
-
 ## 添加Gradle依赖
 
 1.在项目根目录的 build.gradle 的 repositories 添加:
@@ -125,11 +123,13 @@ https://github.com/mabeijianxi/small-video-record
 
 [![](https://img.shields.io/badge/点击一键加入QQ交流群-602082750-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=9922861ef85c19f1575aecea0e8680f60d9386080a97ed310c971ae074998887)
 
-![qq交流群](https://img-blog.csdn.net/20180514131732423?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3h1ZXhpYW5nanlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![qq交流群](https://ss.im5i.com/2021/06/15/6RMdO.jpg)
+
+![gzh_weixin.jpg](https://ss.im5i.com/2021/06/14/65yoL.jpg)
 
 [xvsvg]: https://img.shields.io/badge/XVideo-v1.0.2-brightgreen.svg
 [xv]: https://github.com/xuexiangjys/XVideo
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
 [api]: https://android-arsenal.com/api?level=14
 
-[demo-gif]: https://img.rruu.net/image/5f8088dfbf151
+[demo-gif]: https://z3.ax1x.com/2021/06/15/2HnMcj.gif
